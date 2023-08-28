@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
-            adding notes blah blah blah tes test
+            adding notes blah blah blah tes test test
          */
     }
 
