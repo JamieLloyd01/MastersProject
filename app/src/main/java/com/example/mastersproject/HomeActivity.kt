@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import com.example.mastersproject.ui.login.LoginActivity
 
 
@@ -17,6 +18,22 @@ class HomeActivity : AppCompatActivity() {
         mapButton.setOnClickListener {
             val intent = Intent(this@HomeActivity, MapsActivity::class.java)
             startActivity(intent)
+        }
+
+
+        val profileButton = findViewById<ImageView>(R.id.profileButton)
+            profileButton.setOnClickListener {
+                val intent = Intent(this@HomeActivity, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+
+
+        val settingsButton = findViewById<ImageView>(R.id.settingsButton)
+        settingsButton.setOnClickListener {
+            val intent = Intent(this@HomeActivity, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
 
             /* Set click listeners for each ImageView (button) PAGES DO NOT EXIST YET
         profileButton.setOnClickListener { navigateToProfilePage() }
@@ -48,4 +65,3 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
-}
