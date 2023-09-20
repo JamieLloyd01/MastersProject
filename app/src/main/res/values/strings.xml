@@ -19,4 +19,5 @@
     <string name="reset_password">Reset Password</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="return_to_sign_in">Return To Sign In</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

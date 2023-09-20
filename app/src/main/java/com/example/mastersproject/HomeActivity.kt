@@ -15,7 +15,7 @@ class HomeActivity : AppCompatActivity() {
 
         val mapButton = findViewById<Button>(R.id.mapButton)
         mapButton.setOnClickListener {
-            val intent = Intent(this@HomeActivity, MapHomeActivity::class.java)
+            val intent = Intent(this@HomeActivity, MapsActivity::class.java)
             startActivity(intent)
 
             /* Set click listeners for each ImageView (button) PAGES DO NOT EXIST YET
