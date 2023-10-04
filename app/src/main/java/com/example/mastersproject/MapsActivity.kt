@@ -25,11 +25,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val ListButton2 = findViewById<Button>(R.id.ListButton2)
-        ListButton2.setOnClickListener {
-            val intent = Intent(this@MapsActivity, HomeActivity::class.java)
-            startActivity(intent)
-        }
 
         val profileButton = findViewById<ImageView>(R.id.profileButton)
         profileButton.setOnClickListener {
@@ -37,9 +32,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
-        val settingsButton = findViewById<ImageView>(R.id.settingsButton)
-        settingsButton.setOnClickListener {
-            val intent = Intent(this@MapsActivity, SettingsActivity::class.java)
+        val homeButton = findViewById<ImageView>(R.id.homeButton)
+        homeButton.setOnClickListener {
+            val intent = Intent(this@MapsActivity, HomeActivity::class.java)
             startActivity(intent)
         }
 

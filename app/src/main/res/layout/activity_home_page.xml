@@ -13,13 +13,12 @@
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="424dp" />
 
-    <Button
-        android:id="@+id/mapButton"
-        android:layout_width="49dp"
-        android:layout_height="33dp"
-        android:text="Map"
-        android:textSize="6sp"
-        android:layout_marginTop="10dp"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />

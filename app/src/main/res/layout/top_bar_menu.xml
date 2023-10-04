@@ -22,13 +22,13 @@
         android:src="@drawable/ic_baseline_home_24" />
 
     <ImageView
-        android:id="@+id/settingsButton"
+        android:id="@+id/mapButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_settings_24" />
+        android:src="@drawable/baseline_pin_drop_24" />
 </RelativeLayout>
 
 

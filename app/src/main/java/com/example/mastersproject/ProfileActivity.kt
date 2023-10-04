@@ -17,9 +17,9 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val settingsButton = findViewById<ImageView>(R.id.settingsButton)
-        settingsButton.setOnClickListener {
-            val intent = Intent(this@ProfileActivity, SettingsActivity::class.java)
+        val mapButton = findViewById<ImageView>(R.id.mapButton)
+        mapButton.setOnClickListener {
+            val intent = Intent(this@ProfileActivity, MapsActivity::class.java)
             startActivity(intent)
         }
     }
