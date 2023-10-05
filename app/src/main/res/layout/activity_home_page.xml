@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <!-- Include the top_bar_menu layout -->
     <include
-        android:id="@+id/include"
-        layout="@layout/top_bar_menu"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="424dp" />
+        android:id="@+id/bottomBar"
+        layout="@layout/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
