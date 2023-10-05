@@ -18,6 +18,8 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         val activity : Item = activityList[position]
         holder.name.text = activity.name
         holder.filter1.text = activity.filter1
+        holder.filter2.text = activity.filter2
+        holder.filter3.text = activity.filter3
         holder.priceBracket.text = activity.priceBracket
     }
 
@@ -30,6 +32,8 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
         val name : TextView = itemView.findViewById(R.id.activityName)
         val filter1 : TextView = itemView.findViewById(R.id.filters)
+        val filter2: TextView = itemView.findViewById(R.id.filter2)
+        val filter3 : TextView = itemView.findViewById(R.id.filter3)
         val priceBracket : TextView = itemView.findViewById(R.id.priceBracket)
     }
 }
