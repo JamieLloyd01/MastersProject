@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "979998304024",
+    "project_id": "masters-project-d0a36",
+    "storage_bucket": "masters-project-d0a36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979998304024:android:6b5b0ebd854b990aafe06d",
+        "android_client_info": {
+          "package_name": "com.example.firebaserecyclertest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApTGrrlv_2U0-nrdXHDmewo89IbaPiL-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979998304024:android:b9b50a797375dac0afe06d",
+        "android_client_info": {
+          "package_name": "com.example.mastersproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApTGrrlv_2U0-nrdXHDmewo89IbaPiL-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979998304024:android:224c3767c1e07536afe06d",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApTGrrlv_2U0-nrdXHDmewo89IbaPiL-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
