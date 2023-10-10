@@ -19,7 +19,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.name.text = activity.name
         holder.filter1.text = activity.filter1
         holder.filter2.text = activity.filter2
-        holder.filter3.text = activity.filter3
+        holder.description.text = activity.description
         holder.priceBracket.text = activity.priceBracket
     }
 
@@ -31,9 +31,9 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
     public class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         val name : TextView = itemView.findViewById(R.id.activityName)
-        val filter1 : TextView = itemView.findViewById(R.id.filters)
+        val filter1 : TextView = itemView.findViewById(R.id.filter1)
         val filter2: TextView = itemView.findViewById(R.id.filter2)
-        val filter3 : TextView = itemView.findViewById(R.id.filter3)
+        val description : TextView = itemView.findViewById(R.id.description)
         val priceBracket : TextView = itemView.findViewById(R.id.priceBracket)
     }
 }

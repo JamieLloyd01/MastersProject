@@ -64,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
     private fun EventChangeListener() {
 
         db = FirebaseFirestore.getInstance()
-        db.collection("Test").
+        db.collection("Activities1").
                 addSnapshotListener(object : EventListener<QuerySnapshot> {
                     override fun onEvent(
                         value: QuerySnapshot?,

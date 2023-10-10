@@ -26,24 +26,24 @@ android:padding="30dp">
 
 
     <TextView
-        android:id="@+id/filters"
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Filter1"/>
+        android:text="Description"/>
+
+    <TextView
+        android:id="@+id/filter1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter1"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/filter2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Filter2"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/filter3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Filter3"
         android:textColor="@color/black" />
 
 
