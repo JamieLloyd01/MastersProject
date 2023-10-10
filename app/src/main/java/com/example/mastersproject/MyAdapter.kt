@@ -3,8 +3,10 @@ package com.example.mastersproject
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
@@ -21,6 +23,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.filter2.text = activity.filter2
         holder.description.text = activity.description
         holder.priceBracket.text = activity.priceBracket
+        Picasso.get().load(activity.imageurl).into(holder.imageurl)
     }
 
     override fun getItemCount(): Int {
@@ -35,5 +38,6 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         val filter2: TextView = itemView.findViewById(R.id.filter2)
         val description : TextView = itemView.findViewById(R.id.description)
         val priceBracket : TextView = itemView.findViewById(R.id.priceBracket)
+        val imageurl : ImageView = itemView.findViewById(R.id.image)
     }
 }
