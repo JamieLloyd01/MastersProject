@@ -17,7 +17,7 @@ android:padding="30dp">
 
     <TextView
         android:id="@+id/activityName"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -27,21 +27,21 @@ android:padding="30dp">
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="Description"/>
 
     <TextView
         android:id="@+id/filter1"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Filter1"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/filter2"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Filter2"
         android:textColor="@color/black" />
@@ -49,7 +49,7 @@ android:padding="30dp">
 
     <TextView
         android:id="@+id/priceBracket"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="Price Bracket"/>
@@ -65,7 +65,6 @@ android:padding="30dp">
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_corners"
         android:src="@drawable/ic_skiing_foreground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
