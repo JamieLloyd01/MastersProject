@@ -1,5 +1,7 @@
 package com.example.mastersproject
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +27,18 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.description.text = activity.description
         holder.priceBracket.text = activity.priceBracket
         Picasso.get().load(activity.imageurl).into(holder.imageurl)
+
+
+        holder.link.tag = activity.link
+
+        holder.link.setOnClickListener {
+            val link = holder.link.tag as? String
+
+            if (!link.isNullOrBlank()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                holder.itemView.context.startActivity(intent)
+            }
+        }
 
     }
 
