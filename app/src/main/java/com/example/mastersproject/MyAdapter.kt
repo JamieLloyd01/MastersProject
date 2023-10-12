@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
@@ -24,6 +25,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.description.text = activity.description
         holder.priceBracket.text = activity.priceBracket
         Picasso.get().load(activity.imageurl).into(holder.imageurl)
+
     }
 
     override fun getItemCount(): Int {
@@ -39,5 +41,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         val description : TextView = itemView.findViewById(R.id.description)
         val priceBracket : TextView = itemView.findViewById(R.id.priceBracket)
         val imageurl : ImageView = itemView.findViewById(R.id.image)
+        val link: TextView = itemView.findViewById(R.id.visitWebsite)
+
     }
 }
