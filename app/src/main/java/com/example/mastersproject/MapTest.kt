@@ -3,6 +3,7 @@ package com.example.mastersproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -13,14 +14,28 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.mastersproject.databinding.ActivityMapTestBinding
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 
 class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapTestBinding
+    private lateinit var activityArrayListMap: ArrayList<Item>
+    private lateinit var myAdapter: MyAdapter
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        activityArrayListMap = ArrayList()
+        EventChangeListener()
+
+
+
 
         binding = ActivityMapTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,6 +58,9 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             val intent = Intent(this@MapTest, HomeActivity::class.java)
             startActivity(intent)
         }
+
+
+
     }
 
     /**
@@ -58,17 +76,65 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         val defaultEntry = LatLng(51.619501456103706, -3.9498221039869046)
         // Set the camera position with a specific location and zoom level
-        val cameraPosition = CameraPosition.Builder()
-            .target(defaultEntry) // The target location (LatLng) for the camera
-            .zoom(11.5f)          // Zoom level (adjust as needed)
-            .build()
+      //  val cameraPosition = CameraPosition.Builder()
+          //  .target(defaultEntry) // The target location (LatLng) for the camera
+          //  .zoom(11.5f)          // Zoom level (adjust as needed)
+            //.build()
 
 // Move the camera to the specified position
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+      //  mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-        // Add a marker in Sydney and move the camera
-        //val sydney = LatLng(-34.0, 151.0)
-        //mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        // Iterate through the list of GeoPoints (assuming your GeoPoints are in the 'activityArrayList')
+        for (item in activityArrayListMap) {
+            val geoPoint = item.geoPoint
+
+            // Check if geoPoint is not null
+            if (geoPoint != null) {
+                val latLng = LatLng(geoPoint.latitude, geoPoint.longitude)
+
+                // Add a marker for each GeoPoint
+                mMap.addMarker(MarkerOptions().position(latLng).title(item.name))
+            }else {
+                val sydney = LatLng(-33.86785, 151.20932) // Coordinates for Sydney
+                mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+            }
+        }
+
     }
+
+
+
+    private fun EventChangeListener() {
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("Activities1").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+
+                }
+
+                for (dc: DocumentChange in value?.documentChanges!!) {
+
+                    if (dc.type == DocumentChange.Type.ADDED) {
+
+                        activityArrayListMap.add(dc.document.toObject(Item::class.java))
+
+                    }
+                }
+            }
+
+
+        })
+    }
+
+
+
 }

@@ -42,6 +42,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
     }
 
+
     override fun getItemCount(): Int {
         return activityList.size
     }
