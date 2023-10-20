@@ -19,7 +19,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val mapButton = findViewById<ImageView>(R.id.mapButton)
         mapButton.setOnClickListener {
-            val intent = Intent(this@ProfileActivity, MapsActivity::class.java)
+            val intent = Intent(this@ProfileActivity, MapTest::class.java)
             startActivity(intent)
         }
     }

@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
         val mapButton = findViewById<ImageView>(R.id.mapButton)
         mapButton.setOnClickListener {
-            val intent = Intent(this@HomeActivity, MapsActivity::class.java)
+            val intent = Intent(this@HomeActivity, MapTest::class.java)
             startActivity(intent)
         }
 
