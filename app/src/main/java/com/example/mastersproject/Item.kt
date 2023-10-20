@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.firestore.GeoPoint
 
-data class Item(var name: String ?= null, var description: String ?=null, var filter1: String ?=null, var filter2: String?=null, var priceBracket: String ?=null, var imageurl : String?=null, var link : String?=null, val geoPoint: GeoPoint?=null)
+data class Item(var name: String ?= null, var description: String ?=null, var filter1: String ?=null, var filter2: String?=null, var priceBracket: String ?=null, var imageurl : String?=null, var link : String?=null, val location: GeoPoint?=null)
     : Parcelable {
     constructor(parcel: Parcel) : this(
         // Read properties from the parcel

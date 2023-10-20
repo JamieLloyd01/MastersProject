@@ -76,18 +76,18 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         val defaultEntry = LatLng(51.619501456103706, -3.9498221039869046)
         // Set the camera position with a specific location and zoom level
-      //  val cameraPosition = CameraPosition.Builder()
-          //  .target(defaultEntry) // The target location (LatLng) for the camera
-          //  .zoom(11.5f)          // Zoom level (adjust as needed)
-            //.build()
+        val cameraPosition = CameraPosition.Builder()
+            .target(defaultEntry) // The target location (LatLng) for the camera
+            .zoom(11.5f)          // Zoom level (adjust as needed)
+            .build()
 
 // Move the camera to the specified position
-      //  mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
 
         // Iterate through the list of GeoPoints (assuming your GeoPoints are in the 'activityArrayList')
         for (item in activityArrayListMap) {
-            val geoPoint = item.geoPoint
+            val geoPoint = item.location
 
             // Check if geoPoint is not null
             if (geoPoint != null) {
