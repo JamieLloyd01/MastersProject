@@ -74,11 +74,11 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val defaultEntry = LatLng(51.619501456103706, -3.9498221039869046)
+        val defaultEntry = LatLng(51.631604162924624, -3.8617876351519738)
         // Set the camera position with a specific location and zoom level
         val cameraPosition = CameraPosition.Builder()
             .target(defaultEntry) // The target location (LatLng) for the camera
-            .zoom(11.5f)          // Zoom level (adjust as needed)
+            .zoom(8.5f)          // Zoom level (adjust as needed)
             .build()
 
 // Move the camera to the specified position
@@ -95,9 +95,6 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
                 // Add a marker for each GeoPoint
                 mMap.addMarker(MarkerOptions().position(latLng).title(item.name))
-            }else {
-                val sydney = LatLng(-33.86785, 151.20932) // Coordinates for Sydney
-                mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
             }
         }
 
