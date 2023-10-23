@@ -159,7 +159,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 mapDetailContainer.visibility = View.VISIBLE
 
                 // Move the mapDetailContainer down by 300dp
-                val translationY = 1040f // Change this value as needed
+                val translationY = 1025f // Change this value as needed
                 mapDetailContainer.translationY = translationY
             }
 

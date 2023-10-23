@@ -1,6 +1,7 @@
 package com.example.mastersproject
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -49,6 +50,20 @@ class MapDetailView : Fragment() {
 
             // Load an image using a library like Picasso or Glide
             Picasso.get().load(it.imageurl).into(image)
+
+            val linearLayout: LinearLayout = rootView.findViewById(R.id.activityCard)
+
+            var backgroundColor = Color.parseColor("#FF5733")
+            when (it.filter1) {
+                "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 0, 0)
+                "Games" -> backgroundColor = Color.argb(255, 128, 0, 128)
+                "Outdoors" -> backgroundColor = Color.argb(255, 139, 69, 19)
+                "Nature & Wildlife" -> backgroundColor = Color.argb(255, 29, 185, 84)
+                "Historic" -> backgroundColor = Color.argb(255,246, 188, 91)
+                "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
+                else -> Color.parseColor("#000000")
+            }
+            linearLayout.setBackgroundColor(backgroundColor)
 
             // Set an OnClickListener for the "Visit Website" TextView if needed
             link.setOnClickListener {
