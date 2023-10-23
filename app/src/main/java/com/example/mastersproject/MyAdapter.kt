@@ -25,7 +25,13 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
-        val activity: Item = activityList[position]
+
+        if (activityList.isEmpty()) {
+            return  // Handle empty list gracefully
+        }
+
+        val actualPosition = position % activityList.size
+        val activity: Item = activityList[actualPosition]
         holder.name.text = activity.name
         holder.filter1.text = activity.filter1
         holder.filter2.text = activity.filter2
@@ -65,7 +71,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
 
     override fun getItemCount(): Int {
-        return activityList.size
+        return Int.MAX_VALUE
     }
 
 
