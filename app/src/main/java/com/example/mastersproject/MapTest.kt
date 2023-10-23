@@ -1,24 +1,30 @@
 package com.example.mastersproject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mastersproject.databinding.ActivityMapTestBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.mastersproject.databinding.ActivityMapTestBinding
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+
 
 class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
@@ -85,21 +91,170 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
 
+
         // Iterate through the list of GeoPoints (assuming your GeoPoints are in the 'activityArrayList')
         for (item in activityArrayListMap) {
             val geoPoint = item.location
+
+            val customMarker: BitmapDescriptor
+
+            when (item.filter1) {
+                "Sports & Exercise" -> customMarker = getCustomMarkerRed()
+                "Games" -> customMarker = getCustomMarkerPurple()
+                "Outdoors" -> customMarker = getCustomMarkerBrown()
+                "Nature & Wildlife" -> customMarker = getCustomMarkerGreen()
+                "Historic" -> customMarker = getCustomMarkerYellow()
+                "Arts" -> customMarker = getCustomMarkerBlue()
+                else -> customMarker = getCustomMarkerBlack()
+            }
 
             // Check if geoPoint is not null
             if (geoPoint != null) {
                 val latLng = LatLng(geoPoint.latitude, geoPoint.longitude)
 
                 // Add a marker for each GeoPoint
-                mMap.addMarker(MarkerOptions().position(latLng).title(item.name))
+
+                mMap.addMarker(
+                    MarkerOptions().position(latLng).title(item.name).icon(customMarker)
+                    )
             }
         }
 
     }
 
+
+    private fun getCustomMarkerRed(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.RED
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+    private fun getCustomMarkerPurple(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#800080")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+    private fun getCustomMarkerBrown(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#8B4513")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+
+    private fun getCustomMarkerGreen(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#1DB954")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+    private fun getCustomMarkerYellow(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#efc425")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+    private fun getCustomMarkerBlue(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#00CED1")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+
+    private fun getCustomMarkerBlack(): BitmapDescriptor {
+        val width = 65 // Width of the marker icon
+        val height = 65 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.BLACK
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
 
 
     private fun EventChangeListener() {
