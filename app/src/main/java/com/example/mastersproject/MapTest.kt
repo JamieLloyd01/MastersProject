@@ -239,7 +239,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
         // Draw a white circle as the outline
         val outlinePaint = Paint()
-        outlinePaint.color = Color.parseColor("#1DB954")
+        outlinePaint.color = Color.argb(255, 54, 130, 64)
         canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
 
         // Draw a green circle in the center

@@ -43,7 +43,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         when (activity.filter1) {
             "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
             "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
-            "Outdoors" -> backgroundColor = Color.argb(255, 143, 143, 86)
+            "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
             "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
             "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
             "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
@@ -65,8 +65,6 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
             // Set text colors for other background colors
             // Adjust the text colors as needed for each case
             holder.name.setTextColor(Color.BLACK)
-            holder.filter1.setTextColor(Color.BLACK)
-            holder.filter2.setTextColor(Color.BLACK)
             holder.description.setTextColor(Color.BLACK)
             holder.priceBracket.setTextColor(Color.BLACK)
         }
