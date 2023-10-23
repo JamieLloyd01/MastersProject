@@ -57,8 +57,8 @@ class MapDetailView : Fragment() {
             var backgroundColor = Color.parseColor("#FF5733")
             when (it.filter1) {
                 "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
-                "Games" -> backgroundColor = Color.argb(255, 200, 100, 140)
-                "Outdoors" -> backgroundColor = Color.argb(255, 143, 143, 86)
+                "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
+                "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
                 "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
                 "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
                 "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
@@ -67,12 +67,23 @@ class MapDetailView : Fragment() {
             linearLayout.setBackgroundColor(backgroundColor)
 
             // Set text colors based on the background color
-            if (backgroundColor == Color.argb(255, 255, 100, 100)) {
+            if (backgroundColor == Color.argb(255, 54, 130, 64)) {
                 name.setTextColor(Color.WHITE) // Set text color to white
-                filter1.setTextColor(Color.WHITE)
-                filter2.setTextColor(Color.WHITE)
                 description.setTextColor(Color.WHITE)
                 priceBracket.setTextColor(Color.WHITE)
+            } else  if (backgroundColor == Color.argb(255, 128, 0, 128)) {
+                name.setTextColor(Color.WHITE) // Set text color to white
+                description.setTextColor(Color.WHITE)
+                priceBracket.setTextColor(Color.WHITE)
+            }else if (backgroundColor == Color.argb(255, 255, 100, 100)) {
+                name.setTextColor(Color.argb(255, 0, 0, 0))
+                description.setTextColor(Color.argb(255, 0, 0, 0))
+                priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
+            } else if (backgroundColor == Color.argb(255, 143, 143, 86)) {
+                name.setTextColor(Color.argb(255, 0, 0, 0))
+                description.setTextColor(Color.argb(255, 0, 0, 0))
+                priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
+
             } else {
                 // Set text colors for other background colors
                 // Adjust the text colors as needed for each case

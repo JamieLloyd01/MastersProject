@@ -82,11 +82,11 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val defaultEntry = LatLng(51.631604162924624, -3.8617876351519738)
+        val defaultEntry = LatLng(51.62143727059579, -3.9436196594046407)
         // Set the camera position with a specific location and zoom level
         val cameraPosition = CameraPosition.Builder()
             .target(defaultEntry) // The target location (LatLng) for the camera
-            .zoom(8.5f)          // Zoom level (adjust as needed)
+            .zoom(12.0f)          // Zoom level (adjust as needed)
             .build()
 
 // Move the camera to the specified position
@@ -101,7 +101,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             val customMarker: BitmapDescriptor = when (item.filter1) {
                 "Sports & Exercise" -> getCustomMarkerRed()
                 "Games" -> getCustomMarkerPurple()
-                "Outdoors" -> getCustomMarkerBrown()
+                "Outdoors" -> getCustomMarkerSkyBlue()
                 "Nature & Wildlife" -> getCustomMarkerGreen()
                 "Historic" -> getCustomMarkerYellow()
                 "Arts" -> getCustomMarkerBlue()
@@ -131,7 +131,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 val markerLatLng = marker.position
                 val cameraPosition = CameraPosition.Builder()
                     .target(markerLatLng)  // Set the marker's position as the camera target
-                    .zoom(mMap.cameraPosition.zoom)  // Retain the current zoom level
+                    .zoom(16.0f)  // Retain the current zoom level
                     .bearing(0f)  // Optional: Set the desired bearing (0 means north)
                     .tilt(0f)  // Optional: Set the desired tilt
                     .build()
@@ -159,7 +159,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 mapDetailContainer.visibility = View.VISIBLE
 
                 // Move the mapDetailContainer down by 300dp
-                val translationY = 1025f // Change this value as needed
+                val translationY = 1035f // Change this value as needed
                 mapDetailContainer.translationY = translationY
             }
 
@@ -174,8 +174,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerRed(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -193,8 +193,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerPurple(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -211,15 +211,15 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    private fun getCustomMarkerBrown(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+    private fun getCustomMarkerSkyBlue(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
         // Draw a white circle as the outline
         val outlinePaint = Paint()
-        outlinePaint.color = Color.parseColor("#8B4513")
+        outlinePaint.color = Color.argb(255, 135, 206, 250)
         canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
 
         // Draw a green circle in the center
@@ -232,8 +232,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerGreen(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -251,8 +251,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerYellow(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -270,8 +270,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerBlue(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -289,8 +289,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCustomMarkerBlack(): BitmapDescriptor {
-        val width = 65 // Width of the marker icon
-        val height = 65 // Height of the marker icon
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 

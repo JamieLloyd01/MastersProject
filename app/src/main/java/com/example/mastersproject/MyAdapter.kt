@@ -42,7 +42,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         var backgroundColor = Color.parseColor("#FF5733")
         when (activity.filter1) {
             "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
-            "Games" -> backgroundColor = Color.argb(255,  200, 100, 140)
+            "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
             "Outdoors" -> backgroundColor = Color.argb(255, 143, 143, 86)
             "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
             "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
@@ -52,6 +52,24 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
 
         holder.linearLayout.setBackgroundColor(backgroundColor)
+
+        if (backgroundColor == Color.argb(255, 54, 130, 64)) {
+            holder.name.setTextColor(Color.WHITE) // Set text color to white
+            holder.description.setTextColor(Color.WHITE)
+            holder.priceBracket.setTextColor(Color.WHITE)
+        } else  if (backgroundColor == Color.argb(255, 128, 0, 128)) {
+            holder.name.setTextColor(Color.WHITE) // Set text color to white
+            holder.description.setTextColor(Color.WHITE)
+            holder.priceBracket.setTextColor(Color.WHITE)
+        } else {
+            // Set text colors for other background colors
+            // Adjust the text colors as needed for each case
+            holder.name.setTextColor(Color.BLACK)
+            holder.filter1.setTextColor(Color.BLACK)
+            holder.filter2.setTextColor(Color.BLACK)
+            holder.description.setTextColor(Color.BLACK)
+            holder.priceBracket.setTextColor(Color.BLACK)
+        }
 
 
 
