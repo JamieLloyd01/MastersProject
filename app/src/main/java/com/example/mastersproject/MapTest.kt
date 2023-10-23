@@ -31,7 +31,6 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapTestBinding
     private lateinit var activityArrayListMap: ArrayList<Item>
-    private lateinit var myAdapter: MyAdapter
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,16 +95,14 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         for (item in activityArrayListMap) {
             val geoPoint = item.location
 
-            val customMarker: BitmapDescriptor
-
-            when (item.filter1) {
-                "Sports & Exercise" -> customMarker = getCustomMarkerRed()
-                "Games" -> customMarker = getCustomMarkerPurple()
-                "Outdoors" -> customMarker = getCustomMarkerBrown()
-                "Nature & Wildlife" -> customMarker = getCustomMarkerGreen()
-                "Historic" -> customMarker = getCustomMarkerYellow()
-                "Arts" -> customMarker = getCustomMarkerBlue()
-                else -> customMarker = getCustomMarkerBlack()
+            val customMarker: BitmapDescriptor = when (item.filter1) {
+                "Sports & Exercise" -> getCustomMarkerRed()
+                "Games" -> getCustomMarkerPurple()
+                "Outdoors" -> getCustomMarkerBrown()
+                "Nature & Wildlife" -> getCustomMarkerGreen()
+                "Historic" -> getCustomMarkerYellow()
+                "Arts" -> getCustomMarkerBlue()
+                else -> getCustomMarkerBlack()
             }
 
             // Check if geoPoint is not null

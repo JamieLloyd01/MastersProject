@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-xmlns:tools="http://schemas.android.com/tools"
-app:cardCornerRadius="15dp"
-android:layout_margin="16dp"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-app:cardElevation="24dp"
-android:padding="10dp">
-
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardPreventCornerOverlap="false"
+    android:background="@android:color/transparent"
+    app:cardElevation="24dp">
+
+<LinearLayout
+    android:id="@+id/activityCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginBottom="5dp">
+    android:elevation="0dp"
+    >
 
     <TextView
         android:id="@+id/activityName"
@@ -24,7 +26,9 @@ android:padding="10dp">
         android:textColor="@color/black"
         android:textSize="20sp"
         android:text="Activity Name"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        />
 
 
     <TextView
@@ -33,7 +37,9 @@ android:padding="10dp">
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_marginBottom="10dp"
-        android:text="Description"/>
+        android:text="Description"
+        android:layout_marginStart="10dp"
+        />
 
 
     <TextView
@@ -45,7 +51,8 @@ android:padding="10dp">
         android:background="@drawable/rounded_background"
         android:textColor="@color/white"
         android:padding="2dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"/>
 
     <TextView
         android:id="@+id/filter2"
@@ -54,7 +61,8 @@ android:padding="10dp">
         android:text="Filter2"
         android:background="@drawable/rounded_background"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"/>
 
 
 
@@ -65,17 +73,17 @@ android:padding="10dp">
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="Price Bracket"/>
-
-
-
+            android:text="Price Bracket"
+            android:layout_marginStart="10dp"/>
 
 
 </LinearLayout>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:elevation="0dp"
+    >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image"
