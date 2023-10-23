@@ -53,27 +53,47 @@ class MapDetailView : Fragment() {
 
             val linearLayout: LinearLayout = rootView.findViewById(R.id.activityCard)
 
+            // Set the background color based on your conditions
             var backgroundColor = Color.parseColor("#FF5733")
             when (it.filter1) {
-                "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 0, 0)
-                "Games" -> backgroundColor = Color.argb(255, 128, 0, 128)
-                "Outdoors" -> backgroundColor = Color.argb(255, 139, 69, 19)
-                "Nature & Wildlife" -> backgroundColor = Color.argb(255, 29, 185, 84)
-                "Historic" -> backgroundColor = Color.argb(255,246, 188, 91)
+                "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
+                "Games" -> backgroundColor = Color.argb(255, 200, 100, 140)
+                "Outdoors" -> backgroundColor = Color.argb(255, 143, 143, 86)
+                "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
+                "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
                 "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
                 else -> Color.parseColor("#000000")
             }
             linearLayout.setBackgroundColor(backgroundColor)
 
-            // Set an OnClickListener for the "Visit Website" TextView if needed
-            link.setOnClickListener {
-                val itemLink = item.link
-                if (!itemLink.isNullOrBlank()) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemLink))
-                    startActivity(intent)
-                }
+            // Set text colors based on the background color
+            if (backgroundColor == Color.argb(255, 255, 100, 100)) {
+                name.setTextColor(Color.WHITE) // Set text color to white
+                filter1.setTextColor(Color.WHITE)
+                filter2.setTextColor(Color.WHITE)
+                description.setTextColor(Color.WHITE)
+                priceBracket.setTextColor(Color.WHITE)
+            } else {
+                // Set text colors for other background colors
+                // Adjust the text colors as needed for each case
+                name.setTextColor(Color.BLACK)
+                filter1.setTextColor(Color.BLACK)
+                filter2.setTextColor(Color.BLACK)
+                description.setTextColor(Color.BLACK)
+                priceBracket.setTextColor(Color.BLACK)
             }
         }
+
+
+        // Set an OnClickListener for the "Visit Website" TextView if needed
+        link.setOnClickListener {
+            val itemLink = item?.link
+            if (!itemLink.isNullOrBlank()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemLink))
+                startActivity(intent)
+            }
+        }
+
 
         return rootView
     }

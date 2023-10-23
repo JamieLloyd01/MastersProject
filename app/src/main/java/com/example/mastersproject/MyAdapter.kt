@@ -41,12 +41,12 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
         var backgroundColor = Color.parseColor("#FF5733")
         when (activity.filter1) {
-            "Sports & Exercise" -> backgroundColor = Color.argb(128, 255, 0, 0)
-            "Games" -> backgroundColor = Color.argb(128, 128, 0, 128)
-            "Outdoors" -> backgroundColor = Color.argb(128, 139, 69, 19)
-            "Nature & Wildlife" -> backgroundColor = Color.argb(128, 29, 185, 84)
-            "Historic" -> backgroundColor = Color.argb(255,246, 188, 91)
-            "Arts" -> backgroundColor = Color.argb(128, 0, 206, 209)
+            "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
+            "Games" -> backgroundColor = Color.argb(255,  200, 100, 140)
+            "Outdoors" -> backgroundColor = Color.argb(255, 143, 143, 86)
+            "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
+            "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
+            "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
             else -> Color.parseColor("#000000")
         }
 
