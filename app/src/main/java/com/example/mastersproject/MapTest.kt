@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import android.view.View
-
+import android.widget.RelativeLayout
 
 
 class MapTest : AppCompatActivity(), OnMapReadyCallback {
@@ -127,6 +127,18 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             val selectedItem = activityArrayListMap.find { it.name == marker.title }
 
             if (selectedItem != null) {
+                // Calculate the new camera position to center the marker
+                val markerLatLng = marker.position
+                val cameraPosition = CameraPosition.Builder()
+                    .target(markerLatLng)  // Set the marker's position as the camera target
+                    .zoom(mMap.cameraPosition.zoom)  // Retain the current zoom level
+                    .bearing(0f)  // Optional: Set the desired bearing (0 means north)
+                    .tilt(0f)  // Optional: Set the desired tilt
+                    .build()
+
+                // Move the map camera to the new camera position
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
                 // Create a bundle to pass the selected item to the MapDetailView fragment
                 val bundle = Bundle()
                 bundle.putParcelable("selectedItem", selectedItem)
@@ -135,25 +147,27 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 val mapDetailViewFragment = MapDetailView()
                 mapDetailViewFragment.arguments = bundle
 
-                // Find the mapDetailContainer FrameLayout (the container for MapDetailView)
+                // Find the mapDetailContainer FrameLayout
                 val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
 
                 // Clear any existing fragments in the container
-                mapDetailContainer.removeAllViews()
-
-                // Add the MapDetailView fragment to the mapDetailContainer
                 supportFragmentManager.beginTransaction()
-                    .add(mapDetailContainer.id, mapDetailViewFragment)
-                    .addToBackStack(null)  // Optional: Add to back stack for navigation
+                    .replace(mapDetailContainer.id, mapDetailViewFragment)
                     .commit()
 
-                // Make the mapDetailContainer visible
+                // Set the mapDetailContainer's visibility to visible
                 mapDetailContainer.visibility = View.VISIBLE
+
+                // Move the mapDetailContainer down by 300dp
+                val translationY = 1040f // Change this value as needed
+                mapDetailContainer.translationY = translationY
             }
 
             // Return true to indicate that the marker click event has been handled
             true
         }
+
+
 
 
     }
