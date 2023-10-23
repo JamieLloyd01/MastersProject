@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mastersproject.databinding.ActivityMapTestBinding
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import android.view.View
+
 
 
 class MapTest : AppCompatActivity(), OnMapReadyCallback {
@@ -116,6 +119,42 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                     )
             }
         }
+
+
+        // In your `onMapReady` method
+        mMap.setOnMarkerClickListener { marker ->
+            // Retrieve the selected item based on the marker's title
+            val selectedItem = activityArrayListMap.find { it.name == marker.title }
+
+            if (selectedItem != null) {
+                // Create a bundle to pass the selected item to the MapDetailView fragment
+                val bundle = Bundle()
+                bundle.putParcelable("selectedItem", selectedItem)
+
+                // Create the MapDetailView fragment
+                val mapDetailViewFragment = MapDetailView()
+                mapDetailViewFragment.arguments = bundle
+
+                // Find the mapDetailContainer FrameLayout (the container for MapDetailView)
+                val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
+
+                // Clear any existing fragments in the container
+                mapDetailContainer.removeAllViews()
+
+                // Add the MapDetailView fragment to the mapDetailContainer
+                supportFragmentManager.beginTransaction()
+                    .add(mapDetailContainer.id, mapDetailViewFragment)
+                    .addToBackStack(null)  // Optional: Add to back stack for navigation
+                    .commit()
+
+                // Make the mapDetailContainer visible
+                mapDetailContainer.visibility = View.VISIBLE
+            }
+
+            // Return true to indicate that the marker click event has been handled
+            true
+        }
+
 
     }
 
