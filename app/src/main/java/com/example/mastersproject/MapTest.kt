@@ -124,6 +124,12 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback, MyAdapter.OnItemClickLi
         true
     }
 
+    private fun hideDetailView() {
+        // Find the mapDetailContainer FrameLayout
+        val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
+        mapDetailContainer.visibility = View.GONE
+        // Optionally, you can reset the t
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -144,6 +150,10 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback, MyAdapter.OnItemClickLi
 
 // Move the camera to the specified position
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+        mMap.setOnMapClickListener {
+            hideDetailView()
+        }
 
 
 
