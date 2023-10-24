@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +12,11 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import com.example.mastersproject.MyAdapter
 
 
-class HomeActivity : AppCompatActivity() {
+
+class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
 
     private lateinit var recyclerView: RecyclerView
@@ -38,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
         activityArrayList = arrayListOf()
 
         myAdapter = MyAdapter(activityArrayList)
+        myAdapter.setOnItemClickListener(this)
 
         recyclerView.adapter = myAdapter
 
@@ -60,6 +62,16 @@ class HomeActivity : AppCompatActivity() {
 
 
 
+    }
+
+    // Implement the onItemClick method from the interface
+    override fun onItemClick(item: Item) {
+        // When an item is clicked, start the MapTest activity
+        val intent = Intent(this, MapTest::class.java)
+        // Optionally, pass data to MapTest using extras
+        intent.putExtra("action", "simulate_button_press")
+        // intent.putExtra("key", "value")
+        startActivity(intent)
     }
 
     private fun EventChangeListener() {

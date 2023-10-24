@@ -29,12 +29,14 @@ import android.view.View
 import android.widget.RelativeLayout
 
 
-class MapTest : AppCompatActivity(), OnMapReadyCallback {
+class MapTest : AppCompatActivity(), OnMapReadyCallback, MyAdapter.OnItemClickListener  {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapTestBinding
     private lateinit var activityArrayListMap: ArrayList<Item>
     private lateinit var db: FirebaseFirestore
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +71,57 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
 
 
+    }
+
+    override fun onItemClick(item: Item) {
+        // Retrieve the selected item based on the marker's title
+        val selectedItem = activityArrayListMap.find { it.name ==item.name }
+
+        val geoPointToCenter = selectedItem?.location // Assuming this is your GeoPoint
+
+        if (geoPointToCenter != null) {
+            val centerLatLng = LatLng(geoPointToCenter.latitude, geoPointToCenter.longitude)
+
+            // Calculate the new camera position to center on the LatLng
+            val cameraPosition = CameraPosition.Builder()
+                .target(centerLatLng)
+                .zoom(16.0f)
+                .bearing(0f)
+                .tilt(0f)
+                .build()
+
+            // Move the map camera to the new camera position
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            // Move the map camera to the new camera position
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            // Create a bundle to pass the selected item to the MapDetailView fragment
+            val bundle = Bundle()
+            bundle.putParcelable("selectedItem", selectedItem)
+
+            // Create the MapDetailView fragment
+            val mapDetailViewFragment = MapDetailView()
+            mapDetailViewFragment.arguments = bundle
+
+            // Find the mapDetailContainer FrameLayout
+            val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
+
+            // Clear any existing fragments in the container
+            supportFragmentManager.beginTransaction()
+                .replace(mapDetailContainer.id, mapDetailViewFragment)
+                .commit()
+
+            // Set the mapDetailContainer's visibility to visible
+            mapDetailContainer.visibility = View.VISIBLE
+
+            // Move the mapDetailContainer down by 300dp
+            val translationY = 1035f // Change this value as needed
+            mapDetailContainer.translationY = translationY
+        }
+
+        // Return true to indicate that the marker click event has been handled
+        true
     }
 
     /**

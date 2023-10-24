@@ -9,13 +9,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 import android.graphics.Color
-import android.graphics.Color.rgb
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+    // Define an interface for the item click listener
+    interface OnItemClickListener {
+        fun onItemClick(item: Item)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: HomeActivity) {
+        onItemClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
 
         val itemView =
@@ -82,7 +91,12 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
             }
         }
 
-
+        // Set a click listener for the entire item view
+        holder.itemView.setOnClickListener {
+            val actualPosition = position % activityList.size
+            val activity: Item = activityList[actualPosition]
+            onItemClickListener?.onItemClick(activity)
+        }
     }
 
 

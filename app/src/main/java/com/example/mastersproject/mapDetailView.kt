@@ -2,6 +2,7 @@ package com.example.mastersproject
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,6 +28,7 @@ class MapDetailView : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.item_view, container, false)
+
 
         // Retrieve the selected item from the arguments bundle
         val item = arguments?.getParcelable<Item>("selectedItem")
@@ -84,6 +86,10 @@ class MapDetailView : Fragment() {
                 description.setTextColor(Color.argb(255, 0, 0, 0))
                 priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
 
+            } else if (backgroundColor == Color.argb(255, 0, 206, 209)) {
+                name.setTextColor(Color.argb(255, 0, 0, 0))
+                description.setTextColor(Color.argb(255, 0, 0, 0))
+                priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
             } else {
                 // Set text colors for other background colors
                 // Adjust the text colors as needed for each case
