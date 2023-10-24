@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.squareup.picasso.Picasso
 
 
@@ -67,21 +68,34 @@ class MapDetailView : Fragment() {
             val linearLayout: LinearLayout = rootView.findViewById(R.id.activityCard)
             val backgroundImage: ImageView = rootView.findViewById(R.id.backgroundImage)
             backgroundImage.bringToBack()
+            val myTextView: TextView = rootView.findViewById(R.id.activityName)
 
 
             // Set the background image for "Nature & Wildlife"
             if (it.filter1 == "Nature & Wildlife") {
                 backgroundImage.setImageResource(R.drawable.nature2)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.amaticboldfont)
+                name.setTextSize(40.0F)
             } else  if (it.filter1 == "Games") {
                 backgroundImage.setImageResource(R.drawable.games)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.bangersfont)
+                name.setTextSize(30.0F)
             } else  if (it.filter1 == "Outdoors") {
                 backgroundImage.setImageResource(R.drawable.outdoors)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.rustlemonfont)
+                name.setTextSize(26.5F)
             } else  if (it.filter1 == "Sports & Exercise") {
                 backgroundImage.setImageResource(R.drawable.sports)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.graduatefont)
+                name.setTextSize(26.5F)
             } else  if (it.filter1 == "Historic") {
                 backgroundImage.setImageResource(R.drawable.history2)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.trajanproboldfont)
+                name.setTextSize(25.0F)
             } else  if (it.filter1 == "Arts") {
                 backgroundImage.setImageResource(R.drawable.art)
+                myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.anandablackfont)
+                name.setTextSize(29.0F)
             }
             // Set the background color based on your conditions
             var backgroundColor = Color.parseColor("#FF5733")

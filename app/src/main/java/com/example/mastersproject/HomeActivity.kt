@@ -68,11 +68,11 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     override fun onItemClick(item: Item) {
         // When an item is clicked, start the MapTest activity
         val intent = Intent(this, MapTest::class.java)
-        // Optionally, pass data to MapTest using extras
-        intent.putExtra("action", "simulate_button_press")
-        // intent.putExtra("key", "value")
+        // Pass the item to MapTest using extras
+        intent.putExtra("selectedItem", item)
         startActivity(intent)
     }
+
 
     private fun EventChangeListener() {
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import android.graphics.Color
 import android.widget.LinearLayout
+import androidx.core.content.res.ResourcesCompat
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -61,20 +62,35 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         val backgroundImage: ImageView = holder.itemView.findViewById(R.id.backgroundImage)
         backgroundImage.bringToBack()
 
+        val myTextView = holder.name // The TextView you want to change the font for
+
+
 
         // Set the background image for "Nature & Wildlife"
         if (activity.filter1 == "Nature & Wildlife") {
             backgroundImage.setImageResource(R.drawable.nature2)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.amaticboldfont)
+            holder.name.setTextSize(40.0F)
         } else  if (activity.filter1 == "Games") {
             backgroundImage.setImageResource(R.drawable.games)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.bangersfont)
+            holder.name.setTextSize(30.0F)
         } else  if (activity.filter1 == "Outdoors") {
             backgroundImage.setImageResource(R.drawable.outdoors)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.rustlemonfont)
+            holder.name.setTextSize(26.5F)
         } else  if (activity.filter1 == "Sports & Exercise") {
             backgroundImage.setImageResource(R.drawable.sports)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.graduatefont)
+            holder.name.setTextSize(26.5F)
         } else  if (activity.filter1 == "Historic") {
             backgroundImage.setImageResource(R.drawable.history2)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.trajanproboldfont)
+            holder.name.setTextSize(25.0F)
         } else  if (activity.filter1 == "Arts") {
             backgroundImage.setImageResource(R.drawable.art)
+            myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.anandablackfont)
+            holder.name.setTextSize(29.0F)
         }
 
         var backgroundColor = Color.parseColor("#FF5733")
