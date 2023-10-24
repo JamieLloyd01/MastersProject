@@ -2,6 +2,7 @@ package com.example.mastersproject
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +23,16 @@ import com.squareup.picasso.Picasso
  * create an instance of this fragment.
  */
 class MapDetailView : Fragment() {
+
+    fun View.bringToBack() {
+        val parent = this.parent as ViewGroup
+        val index = parent.indexOfChild(this)
+        if (index > 0) {
+            parent.removeView(this)
+            parent.addView(this, 0)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,14 +65,21 @@ class MapDetailView : Fragment() {
             Picasso.get().load(it.imageurl).into(image)
 
             val linearLayout: LinearLayout = rootView.findViewById(R.id.activityCard)
+            val backgroundImage: ImageView = rootView.findViewById(R.id.backgroundImage)
+            backgroundImage.bringToBack()
 
+
+            // Set the background image for "Nature & Wildlife"
+            if (it.filter1 == "Nature & Wildlife") {
+                backgroundImage.setImageResource(R.drawable.nature2)
+            }
             // Set the background color based on your conditions
             var backgroundColor = Color.parseColor("#FF5733")
             when (it.filter1) {
                 "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
                 "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
                 "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
-                "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
+                "Nature & Wildlife" -> backgroundColor = Color.argb(120, 54, 150, 64)
                 "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
                 "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
                 else -> Color.parseColor("#000000")

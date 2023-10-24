@@ -14,6 +14,15 @@ import android.widget.LinearLayout
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
+    fun View.bringToBack() {
+        val parent = this.parent as ViewGroup
+        val index = parent.indexOfChild(this)
+        if (index > 0) {
+            parent.removeView(this)
+            parent.addView(this, 0)
+        }
+    }
+
     // Define an interface for the item click listener
     interface OnItemClickListener {
         fun onItemClick(item: Item)
@@ -48,12 +57,22 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.priceBracket.text = activity.priceBracket
         Picasso.get().load(activity.imageurl).into(holder.imageurl)
 
+
+        val backgroundImage: ImageView = holder.itemView.findViewById(R.id.backgroundImage)
+        backgroundImage.bringToBack()
+
+
+        // Set the background image for "Nature & Wildlife"
+        if (activity.filter1 == "Nature & Wildlife") {
+            backgroundImage.setImageResource(R.drawable.nature2)
+        }
+
         var backgroundColor = Color.parseColor("#FF5733")
         when (activity.filter1) {
             "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
             "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
             "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
-            "Nature & Wildlife" -> backgroundColor = Color.argb(255, 54, 130, 64)
+            "Nature & Wildlife" -> backgroundColor = Color.argb(120, 54, 150, 64)
             "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
             "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
             else -> Color.parseColor("#000000")

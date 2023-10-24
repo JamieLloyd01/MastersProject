@@ -8,7 +8,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardPreventCornerOverlap="false"
     android:background="@android:color/transparent"
-    app:cardElevation="24dp">
+    app:cardElevation="24dp"
+    >
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        />
 
 <LinearLayout
     android:id="@+id/activityCard"
