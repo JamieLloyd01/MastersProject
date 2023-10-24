@@ -72,30 +72,36 @@ class MapDetailView : Fragment() {
             // Set the background image for "Nature & Wildlife"
             if (it.filter1 == "Nature & Wildlife") {
                 backgroundImage.setImageResource(R.drawable.nature2)
+            } else  if (it.filter1 == "Games") {
+                backgroundImage.setImageResource(R.drawable.games)
+            } else  if (it.filter1 == "Outdoors") {
+                backgroundImage.setImageResource(R.drawable.outdoors)
+            } else  if (it.filter1 == "Sports & Exercise") {
+                backgroundImage.setImageResource(R.drawable.sports)
+            } else  if (it.filter1 == "Historic") {
+                backgroundImage.setImageResource(R.drawable.history2)
+            } else  if (it.filter1 == "Arts") {
+                backgroundImage.setImageResource(R.drawable.art)
             }
             // Set the background color based on your conditions
             var backgroundColor = Color.parseColor("#FF5733")
             when (it.filter1) {
-                "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
-                "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
-                "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
+                "Sports & Exercise" -> backgroundColor = Color.argb(155, 255, 100, 100)
+                "Games" -> backgroundColor = Color.argb( 220, 128, 0, 128)
+                "Outdoors" -> backgroundColor = Color.argb(155, 135, 206, 250)
                 "Nature & Wildlife" -> backgroundColor = Color.argb(120, 54, 150, 64)
-                "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
-                "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
+                "Historic" -> backgroundColor = Color.argb(155, 205, 155, 85)
+                "Arts" -> backgroundColor = Color.argb(155, 0, 206, 209)
                 else -> Color.parseColor("#000000")
             }
             linearLayout.setBackgroundColor(backgroundColor)
 
             // Set text colors based on the background color
-            if (backgroundColor == Color.argb(255, 54, 130, 64)) {
+            if (backgroundColor == Color.argb(220, 128, 0, 128)) {
                 name.setTextColor(Color.WHITE) // Set text color to white
                 description.setTextColor(Color.WHITE)
                 priceBracket.setTextColor(Color.WHITE)
-            } else  if (backgroundColor == Color.argb(255, 128, 0, 128)) {
-                name.setTextColor(Color.WHITE) // Set text color to white
-                description.setTextColor(Color.WHITE)
-                priceBracket.setTextColor(Color.WHITE)
-            }else if (backgroundColor == Color.argb(255, 255, 100, 100)) {
+            } else if (backgroundColor == Color.argb(255, 255, 100, 100)) {
                 name.setTextColor(Color.argb(255, 0, 0, 0))
                 description.setTextColor(Color.argb(255, 0, 0, 0))
                 priceBracket.setTextColor(Color.argb(255, 0, 0, 0))

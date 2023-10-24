@@ -65,27 +65,33 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         // Set the background image for "Nature & Wildlife"
         if (activity.filter1 == "Nature & Wildlife") {
             backgroundImage.setImageResource(R.drawable.nature2)
+        } else  if (activity.filter1 == "Games") {
+            backgroundImage.setImageResource(R.drawable.games)
+        } else  if (activity.filter1 == "Outdoors") {
+            backgroundImage.setImageResource(R.drawable.outdoors)
+        } else  if (activity.filter1 == "Sports & Exercise") {
+            backgroundImage.setImageResource(R.drawable.sports)
+        } else  if (activity.filter1 == "Historic") {
+            backgroundImage.setImageResource(R.drawable.history2)
+        } else  if (activity.filter1 == "Arts") {
+            backgroundImage.setImageResource(R.drawable.art)
         }
 
         var backgroundColor = Color.parseColor("#FF5733")
         when (activity.filter1) {
-            "Sports & Exercise" -> backgroundColor = Color.argb(255, 255, 100, 100)
-            "Games" -> backgroundColor = Color.argb( 255, 128, 0, 128)
-            "Outdoors" -> backgroundColor = Color.argb(255, 135, 206, 250)
+            "Sports & Exercise" -> backgroundColor = Color.argb(155, 255, 100, 100)
+            "Games" -> backgroundColor = Color.argb( 220, 128, 0, 128)
+            "Outdoors" -> backgroundColor = Color.argb(155, 135, 206, 250)
             "Nature & Wildlife" -> backgroundColor = Color.argb(120, 54, 150, 64)
-            "Historic" -> backgroundColor = Color.argb(255, 205, 155, 85)
-            "Arts" -> backgroundColor = Color.argb(255, 0, 206, 209)
+            "Historic" -> backgroundColor = Color.argb(155, 205, 155, 85)
+            "Arts" -> backgroundColor = Color.argb(155, 0, 206, 209)
             else -> Color.parseColor("#000000")
         }
 
 
         holder.linearLayout.setBackgroundColor(backgroundColor)
 
-        if (backgroundColor == Color.argb(255, 54, 130, 64)) {
-            holder.name.setTextColor(Color.WHITE) // Set text color to white
-            holder.description.setTextColor(Color.WHITE)
-            holder.priceBracket.setTextColor(Color.WHITE)
-        } else  if (backgroundColor == Color.argb(255, 128, 0, 128)) {
+        if (backgroundColor == Color.argb(220, 128, 0, 128)) {
             holder.name.setTextColor(Color.WHITE) // Set text color to white
             holder.description.setTextColor(Color.WHITE)
             holder.priceBracket.setTextColor(Color.WHITE)
