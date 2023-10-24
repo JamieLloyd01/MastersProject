@@ -94,8 +94,6 @@ class MapDetailView : Fragment() {
                 // Set text colors for other background colors
                 // Adjust the text colors as needed for each case
                 name.setTextColor(Color.BLACK)
-                filter1.setTextColor(Color.BLACK)
-                filter2.setTextColor(Color.BLACK)
                 description.setTextColor(Color.BLACK)
                 priceBracket.setTextColor(Color.BLACK)
             }
