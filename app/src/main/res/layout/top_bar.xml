@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#159B44"
+    android:background="@color/green"
     android:elevation="20dp">
 
     <TextView
@@ -13,6 +13,7 @@
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:fontFamily="@font/bubblefont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

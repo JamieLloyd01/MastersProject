@@ -60,6 +60,12 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             startActivity(intent)
         }
 
+        val homeButton = findViewById<ImageView>(R.id.homeButton)
+        homeButton.setOnClickListener {
+            val intent = Intent(this@HomeActivity, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
     }
