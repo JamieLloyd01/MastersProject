@@ -20,4 +20,18 @@
         <item name="cornerSize">35dp</item>
         <item name="color">@color/white</item>
     </style>
+
+    <style name="roundImageView2" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">75dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="roundImageView3" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="color">@color/white</item>
+    </style>
 </resources>
