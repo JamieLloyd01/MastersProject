@@ -63,7 +63,9 @@ class MapDetailView : Fragment() {
             priceBracket.text = it.priceBracket
 
             // Load an image using a library like Picasso or Glide
-            Picasso.get().load(it.imageurl).into(image)
+            if(it.imageurl != null && !it.imageurl!!.isEmpty()) {
+                Picasso.get().load(it.imageurl).into(image)
+            }
 
             val linearLayout: LinearLayout = rootView.findViewById(R.id.activityCard)
             val backgroundImage: ImageView = rootView.findViewById(R.id.backgroundImage)
@@ -87,7 +89,7 @@ class MapDetailView : Fragment() {
             } else  if (it.filter1 == "Sports & Exercise") {
                 backgroundImage.setImageResource(R.drawable.sports)
                 myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.graduatefont)
-                name.setTextSize(26.5F)
+                name.setTextSize(24.5F)
             } else  if (it.filter1 == "Historic") {
                 backgroundImage.setImageResource(R.drawable.history2)
                 myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.trajanproboldfont)

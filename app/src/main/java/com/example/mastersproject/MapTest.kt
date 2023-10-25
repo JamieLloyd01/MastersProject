@@ -101,7 +101,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         // Set the camera position with a specific location and zoom level
         val cameraPosition = CameraPosition.Builder()
             .target(defaultEntry) // The target location (LatLng) for the camera
-            .zoom(12.0f)          // Zoom level (adjust as needed)
+            .zoom(9.0f)          // Zoom level (adjust as needed) //change to 12.0 when ready
             .build()
 
 // Move the camera to the specified position

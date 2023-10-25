@@ -57,7 +57,9 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.filter2.text = activity.filter2
         holder.description.text = activity.description
         holder.priceBracket.text = activity.priceBracket
-        Picasso.get().load(activity.imageurl).into(holder.imageurl)
+        if(activity.imageurl != null && !activity.imageurl!!.isEmpty()) {
+            Picasso.get().load(activity.imageurl).into(holder.imageurl)
+        }
 
 
         val backgroundImage: ImageView = holder.itemView.findViewById(R.id.backgroundImage)
@@ -83,7 +85,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         } else  if (activity.filter1 == "Sports & Exercise") {
             backgroundImage.setImageResource(R.drawable.sports)
             myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.graduatefont)
-            holder.name.setTextSize(26.5F)
+            holder.name.setTextSize(24.5F)
         } else  if (activity.filter1 == "Historic") {
             backgroundImage.setImageResource(R.drawable.history2)
             myTextView.typeface = ResourcesCompat.getFont(myTextView.context, R.font.trajanproboldfont)
