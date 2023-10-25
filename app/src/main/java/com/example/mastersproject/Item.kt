@@ -11,7 +11,7 @@ data class Item(var name: String ?= null, var description: String ?=null, var fi
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        // Write properties to the parcel
+        name = parcel.readString()
     }
 
     override fun describeContents(): Int {

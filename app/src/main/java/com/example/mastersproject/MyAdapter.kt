@@ -26,8 +26,9 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
 
     // Define an interface for the item click listener
     interface OnItemClickListener {
-        fun onItemClick(item: Item)
+        fun onItemClick(name: String)
     }
+
 
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -136,8 +137,9 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         holder.itemView.setOnClickListener {
             val actualPosition = position % activityList.size
             val activity: Item = activityList[actualPosition]
-            onItemClickListener?.onItemClick(activity)
+            activity.name?.let { it1 -> onItemClickListener?.onItemClick(it1) }
         }
+
     }
 
 

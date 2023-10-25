@@ -71,13 +71,14 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     }
 
     // Implement the onItemClick method from the interface
-    override fun onItemClick(item: Item) {
+    override fun onItemClick(name: String) {
         // When an item is clicked, start the MapTest activity
         val intent = Intent(this, MapTest::class.java)
-        // Pass the item to MapTest using extras
-        intent.putExtra("selectedItem", item)
+        // Pass the item name to MapTest using extras
+        intent.putExtra("selectedItemName", name)
         startActivity(intent)
     }
+
 
 
     private fun EventChangeListener() {

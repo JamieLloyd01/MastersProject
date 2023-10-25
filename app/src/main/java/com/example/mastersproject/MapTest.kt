@@ -5,10 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mastersproject.databinding.ActivityMapTestBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,8 +28,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
-import android.view.View
-import android.widget.RelativeLayout
+import java.sql.Types.NULL
 
 
 class MapTest : AppCompatActivity(), OnMapReadyCallback {
@@ -35,15 +37,16 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapTestBinding
     private lateinit var activityArrayListMap: ArrayList<Item>
     private lateinit var db: FirebaseFirestore
+    private var itemName: String? = null
 
-
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         activityArrayListMap = ArrayList()
         EventChangeListener()
 
-
+        Log.d("MyTag", "This is a check message")
 
 
         binding = ActivityMapTestBinding.inflate(layoutInflater)
@@ -69,7 +72,9 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
+        itemName = intent.getStringExtra("selectedItemName")
 
+        Log.d("MapDebug", "Moving camera to: ${itemName}")
 
     }
 
@@ -89,6 +94,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         val defaultEntry = LatLng(51.62143727059579, -3.9436196594046407)
@@ -105,28 +111,62 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             hideDetailView()
         }
 
-        val selectedItem = intent.getParcelableExtra<Item>("selectedItem")
+        if(itemName != null){
+            for (item in activityArrayListMap) {
+                if (item.name == itemName){
+                    if (item != null) {
+                        val geoPointFromCard = item.location
+                        if (geoPointFromCard != null) {
+                        val cardLatLng = LatLng(geoPointFromCard.latitude, geoPointFromCard.longitude)
 
-        if (selectedItem != null) {
-            // Retrieve the GeoPoint from the selected item
-            val geoPointToCenter = selectedItem.location
+                        val cameraPositionCard = CameraPosition.Builder()
+                            .target(cardLatLng)  // Set the marker's position as the camera target
+                            .zoom(16.0f)  // Retain the current zoom level
+                            .bearing(0f)  // Optional: Set the desired bearing (0 means north)
+                            .tilt(0f)  // Optional: Set the desired tilt
+                            .build()
 
-            if (geoPointToCenter != null) {
-                val centerLatLng = LatLng(geoPointToCenter.latitude, geoPointToCenter.longitude)
+                        // Move the map camera to the new camera position
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionCard))
 
-                // Calculate the new camera position to center on the LatLng
-                val cameraPosition = CameraPosition.Builder()
-                    .target(centerLatLng)
-                    .zoom(16.0f)
-                    .bearing(0f)
-                    .tilt(0f)
-                    .build()
+                            // Create a bundle to pass the selected item to the MapDetailView fragment
+                            val bundle = Bundle()
+                            bundle.putParcelable("selectedItem", item)
 
-                // Move the map camera to the new camera position
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+                            // Create the MapDetailView fragment
+                            val mapDetailViewFragment = MapDetailView()
+                            mapDetailViewFragment.arguments = bundle
+
+                            // Find the mapDetailContainer FrameLayout
+                            val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
+
+                            // Clear any existing fragments in the container
+                            supportFragmentManager.beginTransaction()
+                                .replace(mapDetailContainer.id, mapDetailViewFragment)
+                                .commit()
+
+                            // Set the mapDetailContainer's visibility to visible
+                            mapDetailContainer.visibility = View.VISIBLE
+
+                            // Move the mapDetailContainer down by 300dp
+                            val translationY = 1035f // Change this value as needed
+                            mapDetailContainer.translationY = translationY
+                        }
+
+                        // Return true to indicate that the marker click event has been handled
+                        true
+
+
+
+
+
+
+
+                    }
+
+                }
             }
         }
-
 
         // Iterate through the list of GeoPoints (assuming your GeoPoints are in the 'activityArrayList')
         for (item in activityArrayListMap) {
