@@ -22,7 +22,12 @@
         android:visibility="gone">
         <!-- You can replace this with the layout of your MapDetailView fragment -->
     </FrameLayout>
-
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Include the Bottom Bar -->
     <include
         android:id="@+id/bottomBar"

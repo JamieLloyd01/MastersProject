@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.mastersproject.databinding.ActivityMapTestBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -97,11 +98,11 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val defaultEntry = LatLng(51.62143727059579, -3.9436196594046407)
+        val defaultEntry = LatLng(51.7186366707045, -3.7593181317647058)
         // Set the camera position with a specific location and zoom level
         val cameraPosition = CameraPosition.Builder()
             .target(defaultEntry) // The target location (LatLng) for the camera
-            .zoom(9.0f)          // Zoom level (adjust as needed) //change to 12.0 when ready
+            .zoom(8.5f)          // Zoom level (adjust as needed) //change to 12.0?
             .build()
 
 // Move the camera to the specified position
@@ -110,6 +111,10 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         mMap.setOnMapClickListener {
             hideDetailView()
         }
+
+        AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        )
 
         if(itemName != null){
             for (item in activityArrayListMap) {

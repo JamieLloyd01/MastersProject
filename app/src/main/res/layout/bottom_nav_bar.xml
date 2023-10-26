@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/backgroundColorPrimary"
     android:padding="8dp"
     android:elevation="20dp"
     android:layout_gravity="bottom">
@@ -31,6 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:src="@drawable/baseline_home_green"
+        android:elevation="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@id/guideline"

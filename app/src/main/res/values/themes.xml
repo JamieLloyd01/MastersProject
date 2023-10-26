@@ -34,4 +34,8 @@
         <item name="cornerSize">20dp</item>
         <item name="color">@color/white</item>
     </style>
+
+    <color name="textColorPrimary">#000000</color> <!-- Black for light mode -->
+    <color name="backgroundColorPrimary">#FFFFFF</color> <!-- White for light mode -->
+
 </resources>
