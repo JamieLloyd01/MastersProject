@@ -16,13 +16,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 class SignUp : AppCompatActivity() {
+
+
+    // Initialize Firebase Auth
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-        // Initialize Firebase Auth
-        val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
 
 
 
