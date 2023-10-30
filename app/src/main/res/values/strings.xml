@@ -12,7 +12,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">Login failed</string>
     <string name="forgot_password">Forgotten your password?</string>
-    <string name="account_already">Already have an account? Sign in</string>
+    <string name="account_already">Created an account? Sign in</string>
     <string name="send_reset_link">Send Reset Link</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
