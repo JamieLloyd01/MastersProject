@@ -52,6 +52,10 @@ class ProfileActivity : AppCompatActivity() {
                     val username = document.getString("username")
                     val usertitle = findViewById<TextView>(R.id.username)
                     usertitle.text = username
+
+                    val completionNumber = document.get("completionNumber")
+                    val bigNumber = findViewById<TextView>(R.id.completedNumber)
+                    bigNumber.text = completionNumber.toString()
                 } else {
                     Log.d(TAG, "No such document")
                 }

@@ -83,6 +83,9 @@ class SignUp : AppCompatActivity() {
                                 updateFirestoreCompletion(uid, completionBoolName)
                             }
 
+                            val integerFieldName = "completionNumber" // Replace with your actual field name
+                            createIntegerFieldForUser(uid, integerFieldName, 0)
+
                             progressBar.visibility = View.GONE
                             Toast.makeText(
                                 baseContext,
@@ -117,6 +120,18 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this@SignUp, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun createIntegerFieldForUser(uid: String, fieldName: String, initialValue: Int) {
+        val userIntFieldMap = hashMapOf(fieldName to initialValue)
+        FirebaseFirestore.getInstance().collection("users").document(uid)
+            .set(userIntFieldMap, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(TAG, "Integer field $fieldName created with initial value $initialValue")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error creating integer field $fieldName", e)
+            }
     }
 
     private fun updateFirestoreCompletion(uid: String, completionBoolName: String?) {
