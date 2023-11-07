@@ -58,9 +58,6 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ResetPassword"
-            android:exported="false" />
-        <activity
             android:name=".ForgottenPassword"
             android:exported="false" />
         <activity
