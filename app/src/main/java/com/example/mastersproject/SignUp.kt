@@ -14,12 +14,14 @@ import com.example.mastersproject.ui.login.LoginActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUp : AppCompatActivity() {
 
 
     // Initialize Firebase Auth
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +65,9 @@ class SignUp : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            val user = auth.currentUser
+                            val uid = user?.uid ?: ""
+                            updateFirestoreUsername(uid, username)
                             progressBar.visibility = View.GONE
                             Toast.makeText(
                                 baseContext,
@@ -97,5 +102,17 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this@SignUp, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun updateFirestoreUsername(uid: String, username: String) {
+        val userMap = hashMapOf("username" to username)
+        db.collection("users").document(uid)
+            .set(userMap)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+            }
     }
 }
