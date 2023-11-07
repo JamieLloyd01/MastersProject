@@ -14,7 +14,12 @@ import com.example.mastersproject.ui.login.LoginActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.SetOptions
 
 class SignUp : AppCompatActivity() {
 
@@ -22,11 +27,15 @@ class SignUp : AppCompatActivity() {
     // Initialize Firebase Auth
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private lateinit var activityArrayListUser: ArrayList<Item>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        activityArrayListUser = ArrayList()
+        EventChangeListener()
 
 
 
@@ -68,6 +77,12 @@ class SignUp : AppCompatActivity() {
                             val user = auth.currentUser
                             val uid = user?.uid ?: ""
                             updateFirestoreUsername(uid, username)
+
+                            for (item in activityArrayListUser){
+                                val completionBoolName = item.name
+                                updateFirestoreCompletion(uid, completionBoolName)
+                            }
+
                             progressBar.visibility = View.GONE
                             Toast.makeText(
                                 baseContext,
@@ -104,6 +119,21 @@ class SignUp : AppCompatActivity() {
         }
     }
 
+    private fun updateFirestoreCompletion(uid: String, completionBoolName: String?) {
+        completionBoolName?.let {
+            val userCompletionUpdate = hashMapOf(it to false)
+
+            db.collection("users").document(uid)
+                .set(userCompletionUpdate, SetOptions.merge())
+                .addOnSuccessListener {
+                    Log.d(TAG, "Completion status updated successfully for $it")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error updating completion status for $it", e)
+                }
+        }
+    }
+
     private fun updateFirestoreUsername(uid: String, username: String) {
         val userMap = hashMapOf("username" to username)
         db.collection("users").document(uid)
@@ -114,5 +144,34 @@ class SignUp : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error writing document", e)
             }
+    }
+
+    private fun EventChangeListener() {
+
+        db.collection("Activities1").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+
+                }
+
+                for (dc: DocumentChange in value?.documentChanges!!) {
+
+                    if (dc.type == DocumentChange.Type.ADDED) {
+
+                        activityArrayListUser.add(dc.document.toObject(Item::class.java))
+
+                    }
+                }
+            }
+
+
+        })
     }
 }
