@@ -13,6 +13,7 @@
     <string name="login_failed">Login failed</string>
     <string name="forgot_password">Forgotten your password?</string>
     <string name="account_already">Created an account? Sign in</string>
+    <string name="to_sign_up">Not got an account yet? Sign up!</string>
     <string name="send_reset_link">Send Reset Link</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>

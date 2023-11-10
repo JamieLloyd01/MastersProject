@@ -110,19 +110,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //This is just a navigation button to use before you add in the login code
-        val navToHome = findViewById<Button>(R.id.navigateToHome)
-        navToHome.setOnClickListener {
-            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-            startActivity(intent)
-        }
-
-        val navToMap = findViewById<Button>(R.id.mapTestButton)
-        navToMap.setOnClickListener {
-            val intent = Intent(this@LoginActivity, MapTest::class.java)
-            startActivity(intent)
-        }
-
 
     }
 
