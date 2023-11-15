@@ -150,7 +150,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun updateFirestoreUsername(uid: String, username: String) {
-        val userMap = hashMapOf("username" to username)
+        val userMap = hashMapOf("username" to username,  "profilePicURL" to "")
         db.collection("users").document(uid)
             .set(userMap)
             .addOnSuccessListener {
