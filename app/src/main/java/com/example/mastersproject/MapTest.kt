@@ -1,5 +1,6 @@
 package com.example.mastersproject
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -8,9 +9,13 @@ import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.PopupWindow
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -24,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,6 +82,46 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         itemName = intent.getStringExtra("selectedItemName")
 
         Log.d("MapDebug", "Moving camera to: ${itemName}")
+
+
+        val fab2: FloatingActionButton = findViewById(R.id.floatingActionButton3)
+        fab2.setOnClickListener { view ->
+            showPopupWindow(view)
+        }
+
+    }
+
+    private fun showPopupWindow(anchorView: View) {
+        val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = layoutInflater.inflate(R.layout.floating_action_popup, null)
+
+        val popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true  // Make popup focusable
+        )
+
+        // Measure the size of the popup to position it correctly
+        popupView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        // Find location of the FloatingActionButton on the screen
+        val location = IntArray(2)
+        anchorView.getLocationOnScreen(location)
+
+        // Set x coordinate to place the popup against the edge of the screen
+        val x = if (location[0] > resources.displayMetrics.widthPixels / 2) {
+            resources.displayMetrics.widthPixels - popupView.measuredWidth
+        } else {
+            0
+        }
+
+        // Set y coordinate to align the bottom of the popup with the top of the FloatingActionButton
+        val y = location[1] - popupView.measuredHeight
+
+        // Show the popup window at the calculated position
+        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, x, y)
+
 
     }
 

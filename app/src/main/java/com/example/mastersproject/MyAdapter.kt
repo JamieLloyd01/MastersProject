@@ -161,4 +161,6 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         val link: TextView = itemView.findViewById(R.id.visitWebsite)
 
     }
+
+
 }
