@@ -189,6 +189,19 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
                     }
                 }
             }
+            // Get the Vibrator service
+            val vibrator = holder.itemView.context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+            // Check if the device has a vibrator
+            if (vibrator.hasVibrator()) {
+                // Vibrate for a specified length of time (e.g., 500 milliseconds)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(500)
+                }
+            }
 
             true // Return true to indicate that the callback consumed the long click
         }
