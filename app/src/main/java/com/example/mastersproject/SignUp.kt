@@ -122,6 +122,7 @@ class SignUp : AppCompatActivity() {
         }
     }
 
+    
     private fun createIntegerFieldForUser(uid: String, fieldName: String, initialValue: Int) {
         val userIntFieldMap = hashMapOf(fieldName to initialValue)
         FirebaseFirestore.getInstance().collection("users").document(uid)

@@ -1,5 +1,6 @@
 package com.example.mastersproject
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -10,8 +11,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import android.graphics.Color
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -30,6 +37,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
     }
 
 
+
     private var onItemClickListener: OnItemClickListener? = null
 
     fun setOnItemClickListener(listener: HomeActivity) {
@@ -45,6 +53,10 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
+
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid // Ensure the user is logged in
+
 
         if (activityList.isEmpty()) {
             return  // Handle empty list gracefully
@@ -140,6 +152,45 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
             val actualPosition = position % activityList.size
             val activity: Item = activityList[actualPosition]
             activity.name?.let { it1 -> onItemClickListener?.onItemClick(it1) }
+        }
+
+
+        holder.itemView.setOnLongClickListener {
+            val actualPosition = position % activityList.size
+            val activity: Item = activityList[actualPosition]
+
+            userId?.let { uid ->
+                val userDoc = db.collection("users").document(uid)
+                userDoc.get().addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val currentValue = activity.name?.let { it1 -> document.getBoolean(it1) } ?: false
+                        val newValue = !currentValue
+                        val newCompletionNumber = if (currentValue) {
+                            (document.getLong("completionNumber") ?: 0) - 1
+                        } else {
+                            (document.getLong("completionNumber") ?: 0) + 1
+                        }
+
+                        activity.name?.let { activityName ->
+                            val updates = hashMapOf<String, Any>(
+                                activityName to newValue,
+                                "completionNumber" to newCompletionNumber
+                            )
+
+                            userDoc.update(updates)
+                                .addOnSuccessListener {
+                                    val toastMessage = if (newValue) "Marked as Complete" else "Marked as Uncomplete"
+                                    Toast.makeText(holder.itemView.context, toastMessage, Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener {
+                                    // Handle the failure here, e.g., show an error message
+                                }
+                        }
+                    }
+                }
+            }
+
+            true // Return true to indicate that the callback consumed the long click
         }
 
     }

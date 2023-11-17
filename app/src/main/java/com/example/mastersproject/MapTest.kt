@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,6 +46,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var activityArrayListMap: ArrayList<Item>
     private lateinit var db: FirebaseFirestore
     private var itemName: String? = null
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -223,6 +225,62 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         for (item in activityArrayListMap) {
             val geoPoint = item.location
 
+            userId?.let { uid ->
+                val userDoc = db.collection("users").document(uid)
+                userDoc.get().addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val completeCheck = item.name?.let { it1 -> document.getBoolean(it1) } ?: false
+                        if(!completeCheck){
+                            val customMarker: BitmapDescriptor = when (item.filter1) {
+                                "Sports & Exercise" -> getCustomMarkerRed()
+                                "Games" -> getCustomMarkerPurple()
+                                "Outdoors" -> getCustomMarkerSkyBlue()
+                                "Nature & Wildlife" -> getCustomMarkerGreen()
+                                "Historic" -> getCustomMarkerYellow()
+                                "Arts" -> getCustomMarkerBlue()
+                                else -> getCustomMarkerBlack()
+                            }
+
+                            // Check if geoPoint is not null
+                            if (geoPoint != null) {
+                                val latLng = LatLng(geoPoint.latitude, geoPoint.longitude)
+
+                                // Add a marker for each GeoPoint
+
+                                mMap.addMarker(
+                                    MarkerOptions().position(latLng).title(item.name).icon(customMarker)
+                                )
+                            }
+                        }
+                        else{
+                            val customMarker: BitmapDescriptor = when (item.filter1) {
+                                "Sports & Exercise" -> getCustomMarkerRedGreen()
+                                "Games" -> getCustomMarkerPurpleGreen()
+                                "Outdoors" -> getCustomMarkerSkyBlueGreen()
+                                "Nature & Wildlife" -> getCustomMarkerGreenGreen()
+                                "Historic" -> getCustomMarkerYellowGreen()
+                                "Arts" -> getCustomMarkerBlueGreen()
+                                else -> getCustomMarkerBlack()
+                            }
+
+                            // Check if geoPoint is not null
+                            if (geoPoint != null) {
+                                val latLng = LatLng(geoPoint.latitude, geoPoint.longitude)
+
+                                // Add a marker for each GeoPoint
+
+                                mMap.addMarker(
+                                    MarkerOptions().position(latLng).title(item.name).icon(customMarker)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+
             val customMarker: BitmapDescriptor = when (item.filter1) {
                 "Sports & Exercise" -> getCustomMarkerRed()
                 "Games" -> getCustomMarkerPurple()
@@ -316,6 +374,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
+    private fun getCustomMarkerRedGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.RED
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
 
     private fun getCustomMarkerPurple(): BitmapDescriptor {
         val width = 85 // Width of the marker icon
@@ -335,6 +411,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
+    private fun getCustomMarkerPurpleGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#800080")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
 
     private fun getCustomMarkerSkyBlue(): BitmapDescriptor {
         val width = 85 // Width of the marker icon
@@ -350,6 +444,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         // Draw a green circle in the center
         val centerPaint = Paint()
         centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    private fun getCustomMarkerSkyBlueGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.argb(255, 135, 206, 250)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
         canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
@@ -374,6 +486,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
+    private fun getCustomMarkerGreenGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.argb(255, 54, 130, 64)
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
 
     private fun getCustomMarkerYellow(): BitmapDescriptor {
         val width = 85 // Width of the marker icon
@@ -389,6 +519,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         // Draw a green circle in the center
         val centerPaint = Paint()
         centerPaint.color = Color.WHITE
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    private fun getCustomMarkerYellowGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#efc425")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
         canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
@@ -412,6 +560,24 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
+
+    private fun getCustomMarkerBlueGreen(): BitmapDescriptor {
+        val width = 85 // Width of the marker icon
+        val height = 85 // Height of the marker icon
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        // Draw a white circle as the outline
+        val outlinePaint = Paint()
+        outlinePaint.color = Color.parseColor("#00CED1")
+        canvas.drawCircle(width / 2f, height / 2f, width / 2f, outlinePaint)
+
+        // Draw a green circle in the center
+        val centerPaint = Paint()
+        centerPaint.color = Color.GREEN
+        canvas.drawCircle(width / 2f, height / 2f, width / 4.5f, centerPaint)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
 
     private fun getCustomMarkerBlack(): BitmapDescriptor {
         val width = 85 // Width of the marker icon
