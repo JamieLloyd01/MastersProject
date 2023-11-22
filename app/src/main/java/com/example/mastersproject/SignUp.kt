@@ -23,8 +23,6 @@ import com.google.firebase.firestore.SetOptions
 
 class SignUp : AppCompatActivity() {
 
-
-    // Initialize Firebase Auth
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var activityArrayListUser: ArrayList<Item>
