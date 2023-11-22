@@ -22,7 +22,6 @@ class ProfileActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    // ActivityResultLauncher for picking an image
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.let { uri ->
@@ -35,7 +34,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Setup UI components and listeners
         setupUI()
     }
 
@@ -158,12 +156,6 @@ class ProfileActivity : AppCompatActivity() {
             for (document in documents) {
                 db.collection("users").document(document.id)
                     .update("profilePicURL", profilePicUrl)
-                    .addOnSuccessListener {
-                        // Handle success
-                    }
-                    .addOnFailureListener {
-                        // Handle failure
-                    }
             }
         }
     }
