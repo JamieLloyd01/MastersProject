@@ -2,7 +2,6 @@ package com.example.mastersproject
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,16 +9,10 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mastersproject.ui.login.LoginActivity
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 
 class SignUp : AppCompatActivity() {
 
@@ -27,101 +20,106 @@ class SignUp : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var activityArrayListUser: ArrayList<Item>
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        initializeUI()
+        setupListeners()
+    }
+
+    private fun initializeUI() {
         activityArrayListUser = ArrayList()
-        EventChangeListener()
+        eventChangeListener()
+    }
 
-
-
+    private fun setupListeners() {
         val inputEmail = findViewById<TextView>(R.id.email)
         val inputUsername = findViewById<TextView>(R.id.username)
         val inputPassword = findViewById<TextView>(R.id.password)
-        val createAccount = findViewById<Button>(R.id.signup)
+        val createAccountButton = findViewById<Button>(R.id.signup)
         val progressBar = findViewById<ProgressBar>(R.id.loading)
+        val accountAlreadyButton = findViewById<Button>(R.id.already_signed_up)
 
-
-        createAccount.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-            val email = inputEmail.text.toString()
-            val username = inputUsername.text.toString()
-            val password = inputPassword.text.toString()
-
-
-
-            if (email.isEmpty()) {
-                Toast.makeText(this@SignUp, "Enter email", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (username.isEmpty()) {
-                Toast.makeText(this@SignUp, "Enter username", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (password.isEmpty()) {
-                Toast.makeText(this@SignUp, "Enter password", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-
-
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            val uid = user?.uid ?: ""
-                            updateFirestoreUsername(uid, username)
-
-                            for (item in activityArrayListUser){
-                                val completionBoolName = item.name
-                                updateFirestoreCompletion(uid, completionBoolName)
-                            }
-
-                            val integerFieldName = "completionNumber" // Replace with your actual field name
-                            createIntegerFieldForUser(uid, integerFieldName, 0)
-
-                            progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                baseContext,
-                                "Account created",
-                                Toast.LENGTH_SHORT,
-                            ).show()
-
-                        } else {
-
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                baseContext,
-                                "Authentication failed.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
-                            progressBar.visibility = View.GONE
-
-                        }
-                    }
-
-
+        createAccountButton.setOnClickListener {
+            handleAccountCreation(inputEmail, inputUsername, inputPassword, progressBar)
         }
 
-
-
-
-
-
-        val accountAlready = findViewById<Button>(R.id.already_signed_up)
-        accountAlready.setOnClickListener {
-            val intent = Intent(this@SignUp, LoginActivity::class.java)
-            startActivity(intent)
+        accountAlreadyButton.setOnClickListener {
+            navigateToLoginActivity()
         }
     }
 
-    
-    private fun createIntegerFieldForUser(uid: String, fieldName: String, initialValue: Int) {
+    private fun handleAccountCreation(
+        inputEmail: TextView,
+        inputUsername: TextView,
+        inputPassword: TextView,
+        progressBar: ProgressBar
+    ) {
+        progressBar.visibility = View.VISIBLE
+        val email = inputEmail.text.toString()
+        val username = inputUsername.text.toString()
+        val password = inputPassword.text.toString()
+
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            progressBar.visibility = View.GONE
+            return
+        }
+
+        createUserAccount(email, password, username, progressBar)
+    }
+
+    private fun createUserAccount(
+        email: String,
+        password: String,
+        username: String,
+        progressBar: ProgressBar
+    ) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    processSuccessfulAccountCreation(username, progressBar)
+                } else {
+                    processFailedAccountCreation(task.exception, progressBar)
+                }
+            }
+    }
+
+    private fun processSuccessfulAccountCreation(
+        username: String,
+        progressBar: ProgressBar
+    ) {
+        val uid = auth.currentUser?.uid ?: ""
+        updateFirestoreUsername(uid, username)
+
+        activityArrayListUser.forEach { item ->
+            updateFirestoreCompletion(uid, item.name)
+        }
+        createCompletionNumberFieldForUser(uid)
+
+        progressBar.visibility = View.GONE
+        Toast.makeText(baseContext, "Account created", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun processFailedAccountCreation(
+        exception: Exception?,
+        progressBar: ProgressBar
+    ) {
+        Log.w(TAG, "createUserWithEmail:failure", exception)
+        Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+        progressBar.visibility = View.GONE
+    }
+
+    private fun navigateToLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+
+    private fun createCompletionNumberFieldForUser(uid: String) {
+        val fieldName = "completionNumber"
+        val initialValue = 0
         val userIntFieldMap = hashMapOf(fieldName to initialValue)
         FirebaseFirestore.getInstance().collection("users").document(uid)
             .set(userIntFieldMap, SetOptions.merge())
@@ -133,20 +131,22 @@ class SignUp : AppCompatActivity() {
             }
     }
 
+
     private fun updateFirestoreCompletion(uid: String, completionBoolName: String?) {
-        completionBoolName?.let {
-            val userCompletionUpdate = hashMapOf(it to false)
+        completionBoolName?.let { fieldName ->
+            val userCompletionUpdate = hashMapOf(fieldName to false)
 
             db.collection("users").document(uid)
                 .set(userCompletionUpdate, SetOptions.merge())
                 .addOnSuccessListener {
-                    Log.d(TAG, "Completion status updated successfully for $it")
+                    Log.d(TAG, "Completion status updated successfully for $fieldName")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(TAG, "Error updating completion status for $it", e)
+                    Log.w(TAG, "Error updating completion status for $fieldName", e)
                 }
         }
     }
+
 
     private fun updateFirestoreUsername(uid: String, username: String) {
         val userMap = hashMapOf("username" to username,  "profilePicURL" to "")
@@ -160,7 +160,7 @@ class SignUp : AppCompatActivity() {
             }
     }
 
-    private fun EventChangeListener() {
+    private fun eventChangeListener() {
 
         db.collection("Activities1").
         addSnapshotListener(object : EventListener<QuerySnapshot> {
