@@ -44,7 +44,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         onItemClickListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
@@ -52,7 +52,7 @@ class MyAdapter(private val activityList : ArrayList<Item>) : RecyclerView.Adapt
         return MyViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.uid // Ensure the user is logged in

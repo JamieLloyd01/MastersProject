@@ -17,12 +17,6 @@ import androidx.core.content.res.ResourcesCompat
 import com.squareup.picasso.Picasso
 
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [mapDetailView.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MapDetailView : Fragment() {
 
     fun View.bringToBack() {
