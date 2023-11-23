@@ -25,6 +25,12 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="activities_label">Activities!</string>
     <string name="youveCompleted">You\'ve Completed:</string>
+    <string name="sports">Sports &amp; Exercise</string>
+    <string name="outdoors">Outdoors</string>
+    <string name="nature">Nature &amp; Wildlife</string>
+    <string name="games">Games</string>
+    <string name="art">Arts</string>
+    <string name="Historic">Historic</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

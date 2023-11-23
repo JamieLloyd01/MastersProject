@@ -9,42 +9,42 @@
         android:id="@+id/checkBoxSports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sports &amp; Exercise"
+        android:text="@string/sports"
         android:checked="true" />
 
     <CheckBox
         android:id="@+id/checkBoxOutdoors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Outdoors"
+        android:text="@string/outdoors"
         android:checked="true" />
 
     <CheckBox
         android:id="@+id/checkBoxNature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nature &amp; Wildlife"
+        android:text="@string/nature"
         android:checked="true" />
 
     <CheckBox
         android:id="@+id/checkBoxGames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Games"
+        android:text="@string/games"
         android:checked="true" />
 
     <CheckBox
         android:id="@+id/checkBoxArts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Arts"
+        android:text="@string/art"
         android:checked="true" />
 
     <CheckBox
         android:id="@+id/checkBoxHistoric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Historic"
+        android:text="@string/Historic"
         android:checked="true" />
 </LinearLayout>
 
