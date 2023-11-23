@@ -31,6 +31,13 @@
     <string name="games">Games</string>
     <string name="art">Arts</string>
     <string name="Historic">Historic</string>
+    <string name="activity_name_holder">Activity Name</string>
+    <string name="description_holder">Description</string>
+    <string name="filter1_holder">Filter1</string>
+    <string name="filter2_holder">Filter2</string>
+    <string name="price_bracket_holder">Price Bracket</string>
+    <string name="visit_website">Visit Website</string>
+    <string name="project_name">Masters Project</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

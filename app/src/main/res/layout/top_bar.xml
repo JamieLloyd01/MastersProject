@@ -9,15 +9,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Masters Project"
+        android:text="@string/project_name"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         android:fontFamily="@font/bubblefont"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
     </TextView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
