@@ -34,6 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar" />
 
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"
         android:layout_width="150dp"
@@ -51,7 +52,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Jamie Lloyd"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="You've Completed:"
-        android:textSize="20dp"
+        android:text="@string/youveCompleted"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         android:elevation="25dp"
         app:layout_constraintTop_toTopOf="@+id/completedNumber" />
@@ -72,7 +72,6 @@
         android:id="@+id/completedNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8"
         android:textColor="@color/green"
         android:textSize="150sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomBar"
@@ -85,12 +84,12 @@
         android:id="@+id/activitieslabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activities!"
+        android:text="@string/activities_label"
         app:layout_constraintBottom_toBottomOf="@+id/completedNumber"
         app:layout_constraintStart_toEndOf="@+id/completedNumber"
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="15dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:elevation="25dp"
         android:layout_marginStart="12dp"/>
 

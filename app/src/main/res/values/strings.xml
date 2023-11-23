@@ -2,6 +2,7 @@
     <string name="app_name">Masters Project</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -22,6 +23,8 @@
     <string name="return_to_sign_in">Return To Sign In</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="activities_label">Activities!</string>
+    <string name="youveCompleted">You\'ve Completed:</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

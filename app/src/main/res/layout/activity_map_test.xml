@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Map Fragment Container -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -14,13 +13,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MapTest" />
 
-    <!-- Map Detail Fragment Container (Initially Hidden) -->
     <FrameLayout
         android:id="@+id/mapDetailContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
-        <!-- You can replace this with the layout of your MapDetailView fragment -->
     </FrameLayout>
     <include
         android:id="@+id/topBar"
@@ -28,7 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- Include the Bottom Bar -->
     <include
         android:id="@+id/bottomBar"
         layout="@layout/bottom_nav_bar"
