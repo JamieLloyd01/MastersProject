@@ -35,14 +35,14 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val db = FirebaseFirestore.getInstance()
-        val userId = FirebaseAuth.getInstance().currentUser?.uid  // Ensure the user is logged in
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (activityList.isEmpty()) {
-            return  // Handle empty list gracefully
+            return
         }
 
         val actualPosition = position % activityList.size
-        val currentActivity = activityList[actualPosition]  // Renamed to avoid shadowing
+        val currentActivity = activityList[actualPosition]
 
         holder.apply {
             name.text = currentActivity.name
@@ -59,6 +59,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
             backgroundImage.bringToBack()
             setLayoutDetails(currentActivity, name, description, priceBracket, backgroundImage, linearLayout)
 
+            //Handling "visit website" button
             link.tag = currentActivity.link
 
             link.setOnClickListener {
@@ -69,11 +70,12 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
                 }
             }
 
-            // Set a click listener for the entire item view
+            // When card clicked
             itemView.setOnClickListener {
                 currentActivity.name?.let { it1 -> onItemClickListener?.onItemClick(it1) }
             }
 
+            //When card held mark that activity as complete/uncomplete and update completion number
             itemView.setOnLongClickListener {
                 userId?.let { uid ->
                     val userDoc = db.collection("users").document(uid)
@@ -92,7 +94,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
                                 (document.getLong("completionNumber") ?: 0) + 1
                             }
 
-                            val activityName = currentActivity.name ?: return@addOnSuccessListener // Or provide a default value instead of returning
+                            val activityName = currentActivity.name ?: return@addOnSuccessListener //if activityName is null return (don't think it is possible to be null but safety safety safety)
 
                             val updates = hashMapOf<String, Any>(
                                 activityName to newValue,
@@ -105,29 +107,30 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
                                     Toast.makeText(itemView.context, toastMessage, Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener {
-                                    // Handle the failure here, e.g., show an error message
+                                    val toastMessageFail = "Error"
+                                    Toast.makeText(itemView.context, toastMessageFail, Toast.LENGTH_SHORT).show()
                                 }
 
                         }
                     }
                 }
-
+                // Make device vibrate when card held
                 val vibrator = itemView.context.getSystemService(Vibrator::class.java)
                 if (vibrator?.hasVibrator() == true) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
                     } else {
                         @Suppress("DEPRECATION")
-                        vibrator.vibrate(500)
+                        vibrator.vibrate(200)
                     }
                 }
-                true // Return true to indicate that the callback consumed the long click
-
+                true
             }
         }
     }
 
 
+// List of methods to configure the cards depending on their filter
     private fun setLayoutDetails(activity: Item, name: TextView, description: TextView, priceBracket: TextView, backgroundImage: ImageView, linearLayout: LinearLayout) {
         when (activity.filter1) {
             "Nature & Wildlife" -> configureLayoutForNature(name, backgroundImage)
@@ -139,8 +142,8 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
 
         }
 
-        // Set the background color
-        val backgroundColor = when (activity.filter1) {
+        // Set the background colour
+        val backgroundColour = when (activity.filter1) {
             "Sports & Exercise" -> Color.argb(155, 255, 100, 100)
             "Games" -> Color.argb( 220, 128, 0, 128)
             "Outdoors" -> Color.argb(155, 135, 206, 250)
@@ -149,11 +152,11 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
             "Arts" -> Color.argb(155, 0, 206, 209)
             else -> Color.parseColor("#000000")
         }
-        linearLayout.setBackgroundColor(backgroundColor)
+        linearLayout.setBackgroundColor(backgroundColour)
 
-        // Set text colors
-        when (backgroundColor) {
-            Color.argb(220, 128, 0, 128) -> setColorForViews(name, description, priceBracket, Color.WHITE)
+        // Set text colours
+        when (backgroundColour) {
+            Color.argb(220, 128, 0, 128) -> setColourForViews(name, description, priceBracket, Color.WHITE)
             Color.argb(255, 255, 100, 100),
             Color.argb(255, 143, 143, 86),
             Color.argb(255, 0, 206, 209) -> {
@@ -161,7 +164,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
                 description.setTextColor(Color.argb(255, 0, 0, 0))
                 priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
             }
-            else -> setColorForViews(name, description, priceBracket, Color.BLACK)
+            else -> setColourForViews(name, description, priceBracket, Color.BLACK)
         }
     }
     
@@ -197,7 +200,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
         name.textSize = 29.0F
     }
 
-    private fun setColorForViews(view: TextView, view2: TextView, view3: TextView, color: Int) {
+    private fun setColourForViews(view: TextView, view2: TextView, view3: TextView, color: Int) {
         view.setTextColor(color)
         view2.setTextColor(color)
         view3.setTextColor(color)
@@ -218,7 +221,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
         val link: TextView = itemView.findViewById(R.id.visitWebsite)
     }
 
-    // Define an interface for the item click listener
+    // interface for the card click listener
     interface OnItemClickListener {
         fun onItemClick(name: String)
     }
