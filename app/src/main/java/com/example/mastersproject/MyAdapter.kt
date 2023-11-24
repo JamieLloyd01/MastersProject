@@ -1,6 +1,7 @@
 package com.example.mastersproject
 
 
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -107,11 +109,14 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
                                     Toast.makeText(itemView.context, toastMessage, Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener {
+                                    Log.d(ContentValues.TAG, "error updating firebase doc", it)
                                     val toastMessageFail = "Error"
                                     Toast.makeText(itemView.context, toastMessageFail, Toast.LENGTH_SHORT).show()
                                 }
 
                         }
+                    }.addOnFailureListener { exception ->
+                        Log.d(ContentValues.TAG, "error marking activity as complete/uncomplete", exception)
                     }
                 }
                 // Make device vibrate when card held
