@@ -66,10 +66,10 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
+                    Log.d(TAG, "sign in success")
                     navigateToHome()
                 } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Log.w(TAG, "sign in failure", task.exception)
                     Toast.makeText(baseContext, "Email or password incorrect", Toast.LENGTH_SHORT).show()
                 }
             }
