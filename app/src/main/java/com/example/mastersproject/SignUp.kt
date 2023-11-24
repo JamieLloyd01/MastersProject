@@ -124,10 +124,10 @@ class SignUp : AppCompatActivity() {
         FirebaseFirestore.getInstance().collection("users").document(uid)
             .set(userIntFieldMap, SetOptions.merge())
             .addOnSuccessListener {
-                Log.d(TAG, "Integer field $fieldName created with initial value $initialValue")
+                Log.d(TAG, "Completion number created with initial value $initialValue")
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error creating integer field $fieldName", e)
+                Log.w(TAG, "Error creating completionNumber field in firebase", e)
             }
     }
 
@@ -156,7 +156,7 @@ class SignUp : AppCompatActivity() {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error writing document", e)
+                Log.w(TAG, "Error updating username", e)
             }
     }
 
