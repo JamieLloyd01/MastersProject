@@ -149,6 +149,7 @@ class MapDetailView : Fragment() {
         name.textSize = 29.0F
     }
 
+
     private fun setColorForViews(view: TextView, view2: TextView, view3: TextView, color: Int) {
         view.setTextColor(color)
         view2.setTextColor(color)
