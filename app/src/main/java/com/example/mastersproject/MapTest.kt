@@ -1,5 +1,6 @@
 package com.example.mastersproject
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -99,7 +100,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             true  // Make popup focusable
         )
 
-        // Measure the size of the popup to position it correctly
+        // Measure the size of the popup so it can be positioned
         popupView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         // Find location of the Filters button on the screen
@@ -116,10 +117,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         // Set y coordinate to align the bottom of the popup with the top of the Filter Button
         val y = location[1] - popupView.measuredHeight
 
-        // Show the popup window at the calculated position
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, x, y)
     }
-
 
     private fun hideDetailView() {
         val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
@@ -132,10 +131,10 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         val defaultEntry = LatLng(51.7186366707045, -3.7593181317647058)
         val cameraPosition = CameraPosition.Builder()
             .target(defaultEntry)
-            .zoom(8.5f)          // Zoom level so that all icons start visible
+            .zoom(8.5f)          // Zoom level so that all markers start visible
             .build()
 
-        // Move the camera to position
+        // Move the camera
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         // Close card view by clicking anywhere on map
@@ -157,10 +156,10 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
                         val cameraPositionCard = CameraPosition.Builder()
                             .target(cardLatLng)  // Set the marker's position as the camera target
-                            .zoom(16.0f)  // change zoom
+                            .zoom(16.0f)
                             .build()
 
-                        // Move the map camera to the new camera position
+                        // Move the camera to the new position
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionCard))
 
                             // Create a bundle to pass the selected item to the MapDetailView fragment
@@ -239,6 +238,8 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                             }
                         }
                     }
+                }.addOnFailureListener { exception ->
+                    Log.d(ContentValues.TAG, "error loading user data", exception)
                 }
             }
         }
@@ -251,10 +252,10 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 val markerLatLng = marker.position
                 val cameraPosition1 = CameraPosition.Builder()
                     .target(markerLatLng)  // Set the marker's position as the camera target
-                    .zoom(16.0f)  // set zoom
+                    .zoom(16.0f)
                     .build()
 
-                // Move the map camera to the new camera position
+                // Move the camera to the new position
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition1))
 
                 // Create a bundle to pass the selected item to the MapDetailView fragment
@@ -279,7 +280,6 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
                 mapDetailContainer.translationY = translationY
             }
 
-            // Return true to indicate that the marker click has been handled
             true
         }
     }
