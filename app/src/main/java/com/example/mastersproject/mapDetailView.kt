@@ -91,8 +91,8 @@ class MapDetailView : Fragment() {
 
         }
 
-        // Set the background color
-        val backgroundColor = when (item.filter1) {
+        // Set the background colour
+        val backgroundColour = when (item.filter1) {
             "Sports & Exercise" -> Color.argb(155, 255, 100, 100)
             "Games" -> Color.argb( 220, 128, 0, 128)
             "Outdoors" -> Color.argb(155, 135, 206, 250)
@@ -101,11 +101,11 @@ class MapDetailView : Fragment() {
             "Arts" -> Color.argb(155, 0, 206, 209)
             else -> Color.parseColor("#000000")
         }
-        linearLayout.setBackgroundColor(backgroundColor)
+        linearLayout.setBackgroundColor(backgroundColour)
 
-        // Set text colors
-        when (backgroundColor) {
-            Color.argb(220, 128, 0, 128) -> setColorForViews(name, description, priceBracket, Color.WHITE)
+        // Set text colours
+        when (backgroundColour) {
+            Color.argb(220, 128, 0, 128) -> setColourForViews(name, description, priceBracket, Color.WHITE)
             Color.argb(255, 255, 100, 100),
             Color.argb(255, 143, 143, 86),
             Color.argb(255, 0, 206, 209) -> {
@@ -113,7 +113,7 @@ class MapDetailView : Fragment() {
                 description.setTextColor(Color.argb(255, 0, 0, 0))
                 priceBracket.setTextColor(Color.argb(255, 0, 0, 0))
             }
-            else -> setColorForViews(name, description, priceBracket, Color.BLACK)
+            else -> setColourForViews(name, description, priceBracket, Color.BLACK)
         }
     }
 
@@ -150,7 +150,7 @@ class MapDetailView : Fragment() {
     }
 
 
-    private fun setColorForViews(view: TextView, view2: TextView, view3: TextView, color: Int) {
+    private fun setColourForViews(view: TextView, view2: TextView, view3: TextView, color: Int) {
         view.setTextColor(color)
         view2.setTextColor(color)
         view3.setTextColor(color)
