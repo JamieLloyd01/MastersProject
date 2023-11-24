@@ -31,17 +31,23 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
-
         activityArrayList = arrayListOf()
         myAdapter = MyAdapter(activityArrayList)
         myAdapter.setOnItemClickListener(this)
-        recyclerView.adapter = myAdapter
 
+        setupRecyclerView()
+        setupUI()
         eventChangeListener()
+    }
 
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = myAdapter
+    }
+
+    private fun setupUI() {
         val mapButton = findViewById<ImageView>(R.id.mapButton)
         mapButton.setOnClickListener {
             val intent = Intent(this@HomeActivity, MapTest::class.java)
@@ -66,6 +72,7 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             showPopupWindow(view)
         }
     }
+
 
     //Method to show filter menu
     private fun showPopupWindow(anchorView: View) {

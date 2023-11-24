@@ -57,30 +57,34 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val profileButton = findViewById<ImageView>(R.id.profileButton)
-        profileButton.setOnClickListener {
-            val intent = Intent(this@MapTest, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        val homeButton = findViewById<ImageView>(R.id.homeButton)
-        homeButton.setOnClickListener {
-            val intent = Intent(this@MapTest, HomeActivity::class.java)
-            startActivity(intent)
-        }
-
         itemName = intent.getStringExtra("selectedItemName")
+
+        setupUI()
+
+    }
+
+    private fun setupUI() {
+        findViewById<ImageView>(R.id.homeButton).setOnClickListener {
+            navigateTo(HomeActivity::class.java)
+        }
+
+        findViewById<ImageView>(R.id.profileButton).setOnClickListener {
+            navigateTo(ProfileActivity::class.java)
+        }
 
         val fab2: FloatingActionButton = findViewById(R.id.floatingActionButton3)
         fab2.setOnClickListener { view ->
             showPopupWindow(view)
         }
+    }
 
+    private fun navigateTo(destination: Class<*>) {
+        val intent = Intent(this, destination)
+        startActivity(intent)
     }
 
     private fun showPopupWindow(anchorView: View) {

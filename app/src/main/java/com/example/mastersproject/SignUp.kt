@@ -24,11 +24,11 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        initializeUI()
+        setupUI()
         setupListeners()
     }
 
-    private fun initializeUI() {
+    private fun setupUI() {
         activityArrayListUser = ArrayList()
         eventChangeListener()
     }

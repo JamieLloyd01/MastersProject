@@ -23,7 +23,7 @@ data class Item(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readGeoPoint() // Custom extension function to read GeoPoint
+        parcel.readGeoPoint()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -34,7 +34,7 @@ data class Item(
         parcel.writeString(priceBracket)
         parcel.writeString(imageurl)
         parcel.writeString(link)
-        parcel.writeGeoPoint(location) // Custom extension function to write GeoPoint
+        parcel.writeGeoPoint(location)
     }
 
     override fun describeContents(): Int {

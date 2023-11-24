@@ -25,7 +25,7 @@ class ProfileActivity : AppCompatActivity() {
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.let { uri ->
-                handleImagePicked(uri)
+                handleImage(uri)
             }
         }
     }
@@ -93,12 +93,12 @@ class ProfileActivity : AppCompatActivity() {
 
         docRef.get().addOnSuccessListener { document ->
             if (document != null) {
-                // Extracting the username from the document and setting it to the TextView
+                // Extracting the username from firebase doc and setting it to the TextView
                 val username = document.getString("username")
                 val usernameTextView = findViewById<TextView>(R.id.username)
                 usernameTextView.text = username
 
-                // Extracting the completion number from the document and setting it to the TextView
+                // Extracting the completion number from firebase doc and setting it to the TextView
                 val completionNumber = document.get("completionNumber")?.toString()
                 val completionNumberTextView = findViewById<TextView>(R.id.completedNumber)
                 completionNumberTextView.text = completionNumber ?: "0"  // Default to "0" if null
@@ -110,31 +110,15 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleImagePicked(uri: Uri) {
+    private fun handleImage(uri: Uri) {
         val currentUser = auth.currentUser
         currentUser?.let {
             val uid = it.uid
-            getUsernameFromFirestore(uid) { username ->
-                uploadImageToFirebase(uri, username)
-            }
+            uploadImageToFirebase(uri, uid)
         }
     }
 
-    private fun getUsernameFromFirestore(uid: String, callback: (String) -> Unit) {
-        val docRef = FirebaseFirestore.getInstance().collection("users").document(uid)
-        docRef.get().addOnSuccessListener { document ->
-            if (document != null && document.exists()) {
-                val username = document.getString("username") ?: ""
-                callback(username)
-            } else {
-                Log.d(TAG, "No such document")
-            }
-        }.addOnFailureListener { exception ->
-            Log.d(TAG, "get failed with ", exception)
-        }
-    }
-
-    private fun uploadImageToFirebase(fileUri: Uri, username: String) {
+    private fun uploadImageToFirebase(fileUri: Uri, uid: String) {
         val fileName = UUID.randomUUID().toString() + ".jpg"
         val storageRef = FirebaseStorage.getInstance().getReference("profileImages/$fileName")
 
@@ -143,20 +127,21 @@ class ProfileActivity : AppCompatActivity() {
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
                     val profileImage = findViewById<ImageView>(R.id.profileImage)
                     Picasso.get().load(uri).into(profileImage)
-                    updateUserProfilePicUrl(username, uri.toString())
+                    updateUserProfilePicUrl(uid, uri.toString())
                 }
             }
     }
 
-    private fun updateUserProfilePicUrl(username: String, profilePicUrl: String) {
+    private fun updateUserProfilePicUrl(uid: String, profilePicUrl: String) {
         val db = FirebaseFirestore.getInstance()
-        val userRef = db.collection("users").whereEqualTo("username", username)
+        val userRef = db.collection("users").document(uid)
 
-        userRef.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                db.collection("users").document(document.id)
-                    .update("profilePicURL", profilePicUrl)
+        userRef.update("profilePicURL", profilePicUrl)
+            .addOnSuccessListener {
+                Log.d(TAG, "User profile picture URL updated successfully.")
             }
-        }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "Error updating user profile picture URL", e)
+            }
     }
 }
