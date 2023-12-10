@@ -38,6 +38,7 @@
     <string name="price_bracket_holder">Price Bracket</string>
     <string name="visit_website">Visit Website</string>
     <string name="project_name">Masters Project</string>
+    <string name="submitButton">Apply</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
