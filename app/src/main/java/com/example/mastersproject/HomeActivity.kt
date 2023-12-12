@@ -87,26 +87,22 @@ class HomeActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             true  // Make popup focusable
         )
 
-
         popupView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        // Find the Filter buttons location
+        // Find the FloatingActionButton's location on screen
         val location = IntArray(2)
         anchorView.getLocationOnScreen(location)
 
-        // Set x coordinate to place the menu against the edge of the screen
-        val x = if (location[0] > resources.displayMetrics.widthPixels / 2) {
-            resources.displayMetrics.widthPixels - popupView.measuredWidth
-        } else {
-            0
-        }
+        // Calculate x coordinate to align the popup's right edge with FloatingActionButton's left edge
+        val x = location[0] - popupView.measuredWidth
 
-        // Set y coordinate to align the bottom of the menu with the top of the FloatingActionButton
+        // Calculate y coordinate to align the popup's bottom edge with FloatingActionButton's top edge
         val y = location[1] - popupView.measuredHeight
 
-        // Show the menu at the calculated position
+        // Show the popup at the calculated position
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, x, y)
     }
+
 
     //Method to start map activity and pass item name
     override fun onItemClick(name: String) {

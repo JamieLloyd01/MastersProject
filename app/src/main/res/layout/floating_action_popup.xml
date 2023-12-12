@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,41 +11,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sports"
-        android:checked="true" />
+        android:checked="true"/>
 
     <CheckBox
         android:id="@+id/checkBoxOutdoors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/outdoors"
-        android:checked="true" />
+        android:checked="true"/>
 
     <CheckBox
         android:id="@+id/checkBoxNature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nature"
-        android:checked="true" />
+        android:checked="true"/>
 
     <CheckBox
         android:id="@+id/checkBoxGames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/games"
-        android:checked="true" />
+        android:checked="true"/>
 
     <CheckBox
         android:id="@+id/checkBoxArts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/art"
-        android:checked="true" />
+        android:checked="true"/>
 
     <CheckBox
         android:id="@+id/checkBoxHistoric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Historic"
-        android:checked="true" />
-</LinearLayout>
+        android:checked="true"/>
 
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="77dp"
+        android:layout_height="33dp"
+        android:background="#AB4CAF50"
+        android:text="@string/submitButton"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>

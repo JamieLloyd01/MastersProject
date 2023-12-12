@@ -19,7 +19,6 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.mastersproject.databinding.ActivityMapTestBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -90,7 +89,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showPopupWindow(anchorView: View) {
         val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val dummyParent = FrameLayout(this) // Or any other ViewGroup
+        val dummyParent = FrameLayout(this)
         val popupView = layoutInflater.inflate(R.layout.floating_action_popup, dummyParent, false)
 
         val popupWindow = PopupWindow(
@@ -103,28 +102,26 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
         // Measure the size of the popup so it can be positioned
         popupView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        // Find location of the Filters button on the screen
+        // Find location of the FloatingActionButton on the screen
         val location = IntArray(2)
         anchorView.getLocationOnScreen(location)
 
-        // Set x coordinate against the edge of the screen
-        val x = if (location[0] > resources.displayMetrics.widthPixels / 2) {
-            resources.displayMetrics.widthPixels - popupView.measuredWidth
-        } else {
-            0
-        }
+        // Calculate x coordinate to align the popup's right edge with FloatingActionButton's left edge
+        val x = location[0] - popupView.measuredWidth
 
-        // Set y coordinate to align the bottom of the popup with the top of the Filter Button
+        // Calculate y coordinate to align the popup's bottom edge with FloatingActionButton's top edge
         val y = location[1] - popupView.measuredHeight
 
+        // Show the popup at the calculated position
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, x, y)
     }
+
 
     private fun hideDetailView() {
         val mapDetailContainer = findViewById<FrameLayout>(R.id.mapDetailContainer)
         mapDetailContainer.visibility = View.GONE
     }
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         // Set Swansea to be default entry point
@@ -142,9 +139,6 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
             hideDetailView()
         }
 
-        AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        )
 
         // if card clicked in list view show that card and marker on map
         if(itemName != null){
@@ -276,7 +270,7 @@ class MapTest : AppCompatActivity(), OnMapReadyCallback {
 
                 mapDetailContainer.visibility = View.VISIBLE
 
-                val translationY = 1035f // Change this value as needed
+                val translationY = 1035f
                 mapDetailContainer.translationY = translationY
             }
 

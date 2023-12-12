@@ -18,11 +18,11 @@ class ForgottenPassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgotten_password)
 
-        initializeComponents()
+        initialiseComponents()
         setupEventListeners()
     }
 
-    private fun initializeComponents() {
+    private fun initialiseComponents() {
         auth = FirebaseAuth.getInstance()
         emailField = findViewById(R.id.username)
     }
