@@ -61,7 +61,7 @@ class MyAdapter(private val activityList: ArrayList<Item>) : RecyclerView.Adapte
             backgroundImage.bringToBack()
             setLayoutDetails(currentActivity, name, description, priceBracket, backgroundImage, linearLayout)
 
-            //Handling "visit website" button
+            //Handling visit website button
             link.tag = currentActivity.link
 
             link.setOnClickListener {

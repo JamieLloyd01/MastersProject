@@ -58,7 +58,7 @@ fun Parcel.writeGeoPoint(geoPoint: GeoPoint?) {
         writeDouble(geoPoint.latitude)
         writeDouble(geoPoint.longitude)
     } else {
-        writeDouble(Double.NaN) // Use NaN to represent null GeoPoint
+        writeDouble(Double.NaN)
         writeDouble(Double.NaN)
     }
 }
